@@ -1,0 +1,17 @@
+# Prettier ignore file
+node_modules/
+build/
+coverage/
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+.env
+.env.local
+.env.production
+.env.staging
+.DS_Store
+*.log
+.git/
+.vscode/
+.idea/

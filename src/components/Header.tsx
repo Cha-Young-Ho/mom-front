@@ -36,27 +36,41 @@ const Header: React.FC = () => {
                     <div className="block block-4"></div>
                   </div>
                 </div>
-                <h1>다문화가정 지원 유정센터</h1>
+                <h1>한국미래인적자원개발원</h1>
               </div>
             </Link>
           </div>
-          
-          <nav className="navigation">
+           <nav className="navigation">
             <Link 
               to="/" 
               className={location.pathname === '/' ? 'active' : ''}
             >
-              한국정착정보
+              센터소개
+            </Link>
+            <Link
+              to="/curriculum" 
+              className={location.pathname === '/curriculum' ? 'active' : ''}
+            >
+              취급업무
             </Link>
             <Link 
-              to="/community" 
-              className={location.pathname === '/community' ? 'active' : ''}
+              to="/courses" 
+              className={location.pathname === '/courses' ? 'active' : ''}
             >
-              가족센터 정보
+              교육대상
             </Link>
-            <Link to="#" className="nav-link">알림공간</Link>
-            <Link to="#" className="nav-link">인식개선</Link>
-            <Link to="#" className="nav-link">상담실</Link>
+            <Link 
+              to="/gallery" 
+              className={location.pathname === '/gallery' ? 'active' : ''}
+            >
+              주요정보
+            </Link>
+            <Link 
+              to="/news" 
+              className={location.pathname === '/news' ? 'active' : ''}
+            >
+              센터소식
+            </Link>
           </nav>
           
           <div className="contact-buttons">

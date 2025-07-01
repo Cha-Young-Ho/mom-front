@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -8,35 +9,35 @@ const Home: React.FC = () => {
   const slides = [
     {
       id: 1,
-      title: "보건서비스 정보를 한눈에",
-      subtitle: "다양한 보건서비스 정보를 제공합니다.",
-      buttonText: "e-Health 포털 바로가기",
+      title: "한국미래인적자원개발원",
+      subtitle: "미래 인재 양성을 위한 전문 교육기관입니다.",
+      buttonText: "센터소개 자세히 보기",
       image: "/images/health-service.svg",
-      icons: ["👩‍⚕️", "👨‍⚕️", "👨‍👩‍👧‍👦"]
+      icons: ["👨‍🎓", "👩‍🏫", "📚"]
     },
     {
       id: 2,
-      title: "가족 건강 관리 서비스",
-      subtitle: "온 가족의 건강을 체계적으로 관리해보세요.",
-      buttonText: "건강관리 서비스 보기",
+      title: "전문 교육 프로그램",
+      subtitle: "체계적이고 실무 중심의 교육 프로그램을 제공합니다.",
+      buttonText: "교육과정 확인하기",
       image: "/images/family-health.svg",
-      icons: ["👶", "👦", "👨‍🦳"]
+      icons: ["💻", "📖", "🎯"]
     },
     {
       id: 3,
-      title: "온라인 상담 및 예약",
-      subtitle: "언제 어디서나 편리한 온라인 상담을 받아보세요.",
-      buttonText: "온라인 상담 예약",
+      title: "글로벌 인재 양성",
+      subtitle: "국제적 감각을 갖춘 전문 인력을 양성합니다.",
+      buttonText: "프로그램 보기",
       image: "/images/online-consultation.svg",
-      icons: ["📞", "💬", "📋"]
+      icons: ["🌍", "🤝", "📈"]
     },
     {
       id: 4,
-      title: "건강검진 및 예방접종",
-      subtitle: "정기 건강검진과 예방접종 일정을 관리하세요.",
-      buttonText: "검진 일정 확인",
+      title: "산학협력 프로그램",
+      subtitle: "기업과 연계한 실무 교육으로 취업을 지원합니다.",
+      buttonText: "협력업체 보기",
       image: "/images/health-checkup.svg",
-      icons: ["🔬", "💉", "📊"]
+      icons: ["🏢", "🤝", "💼"]
     }
   ];
 
@@ -63,10 +64,10 @@ const Home: React.FC = () => {
 
   return (
     <div className="home">
-      {/* e-보건소 Link */}
+      {/* e-보건소 Link를 센터 포털로 변경 */}
       <div className="ehealth-link">
         <a href="https://www.e-bogunso.go.kr" target="_blank" rel="noopener noreferrer" className="ehealth-btn">
-          🏠 e-보건소
+          🏢 센터 포털
         </a>
       </div>
 
@@ -130,54 +131,104 @@ const Home: React.FC = () => {
       <section className="content-sections">
         <div className="container">
           <div className="sections-grid">
-            {/* 알림공간 Section */}
+            {/* 센터소개 Section */}
             <div className="content-section">
               <div className="section-header">
-                <h2>알림공간</h2>
+                <h2>센터소개</h2>
+                <p>한국미래인적자원개발원을 소개합니다</p>
               </div>
-              <div className="section-tabs">
-                <button className="tab active">전체</button>
-                <button className="tab">기관소식</button>
-                <button className="tab">디지털 소식</button>
-                <button className="tab">참고자료</button>
-                <button className="tab-more">+</button>
-              </div>
-              <div className="content-list">
-                <div className="content-item">
-                  <span className="item-tag green">디지털소식</span>
-                  <h3>「한국건강가정진흥원」 출산 축하 시회보험 안...</h3>
-                  <span className="item-date">2025-01-25</span>
+              
+              <div className="intro-cards">
+                <div className="intro-card">
+                  <div className="card-icon">🏢</div>
+                  <h3>기관 개요</h3>
+                  <p>한국미래인적자원개발원은 미래 사회가 필요로 하는 창의적이고 전문적인 인재를 양성하기 위해 설립된 교육기관입니다.</p>
                 </div>
-                <div className="content-item">
-                  <span className="item-tag green">기관소식</span>
-                  <h3>「2025년 건강가정 문화 확산을 위한 사업 공모...</h3>
-                  <span className="item-date">2025-01-20</span>
+                
+                <div className="intro-card">
+                  <div className="card-icon">🎯</div>
+                  <h3>설립 목적</h3>
+                  <p>글로벌 시대에 부응하는 인적자원 개발과 지속적인 교육을 통해 개인과 사회의 발전에 기여하고자 합니다.</p>
+                </div>
+                
+                <div className="intro-card">
+                  <div className="card-icon">📈</div>
+                  <h3>비전</h3>
+                  <p>혁신적 교육 방법론과 최신 기술을 활용하여 미래 인재 양성의 선도기관으로 자리매김하겠습니다.</p>
                 </div>
               </div>
             </div>
 
-            {/* 가족센터정보 Section */}
+            {/* 조직도 Section */}
             <div className="content-section">
               <div className="section-header">
-                <h2>가족센터정보</h2>
+                <h2>조직도 및 현황</h2>
+                <Link to="/courses" className="view-more-btn">상세보기</Link>
               </div>
-              <div className="section-tabs">
-                <button className="tab active">전체</button>
-                <button className="tab">프로그램</button>
-                <button className="tab">행사</button>
-                <button className="tab">채용정보</button>
-                <button className="tab-more">+</button>
+              
+              <div className="organization-preview">
+                <div className="org-chart-simple">
+                  <div className="org-level">
+                    <div className="org-box-simple director">
+                      <h4>원장</h4>
+                      <p>한국미래인적자원개발원</p>
+                    </div>
+                  </div>
+                  
+                  <div className="org-level">
+                    <div className="org-box-simple department">
+                      <h5>교육기획부</h5>
+                      <span>교육과정 기획 및 개발</span>
+                    </div>
+                    <div className="org-box-simple department">
+                      <h5>연구개발부</h5>
+                      <span>인적자원 연구</span>
+                    </div>
+                    <div className="org-box-simple department">
+                      <h5>사업운영부</h5>
+                      <span>글로벌 융합인재 개발</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="stats-mini">
+                  <div className="stat-mini">
+                    <div className="stat-number">25</div>
+                    <div className="stat-label">전체 직원</div>
+                  </div>
+                  <div className="stat-mini">
+                    <div className="stat-number">4</div>
+                    <div className="stat-label">주요 부서</div>
+                  </div>
+                  <div className="stat-mini">
+                    <div className="stat-number">12</div>
+                    <div className="stat-label">운영 팀</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 주요 업무 Section */}
+            <div className="content-section">
+              <div className="section-header">
+                <h2>주요 업무</h2>
+                <Link to="/curriculum" className="view-more-btn">상세보기</Link>
               </div>
               <div className="content-list">
                 <div className="content-item">
-                  <span className="item-tag blue">프로그램</span>
-                  <h3>가족 소통 프로그램 [함께걸기]</h3>
-                  <span className="item-date">2025-01-28</span>
+                  <span className="item-tag blue">교육</span>
+                  <h3>미래 인재 양성을 위한 교육 프로그램 개발</h3>
+                  <span className="item-date">지속적 운영</span>
                 </div>
                 <div className="content-item">
-                  <span className="item-tag blue">프로그램</span>
-                  <h3>[다문화가족 자녀 학습지원] 한국어 교육 프로그램</h3>
-                  <span className="item-date">2025-01-27</span>
+                  <span className="item-tag green">연구</span>
+                  <h3>인적자원 개발 분야 연구 및 정책 개발</h3>
+                  <span className="item-date">연중 진행</span>
+                </div>
+                <div className="content-item">
+                  <span className="item-tag purple">협력</span>
+                  <h3>산업체 협력 및 국제 교류 활동</h3>
+                  <span className="item-date">확대 운영</span>
                 </div>
               </div>
             </div>

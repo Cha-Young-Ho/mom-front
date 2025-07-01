@@ -4,7 +4,9 @@ import Header from './components/Header';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import Community from './pages/Community';
+import Curriculum from './pages/Curriculum';
 import Home from './pages/Home';
+import Organization from './pages/Organization';
 import PostEditor from './pages/PostEditor';
 
 function App() {
@@ -24,6 +26,10 @@ function App() {
               <main>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/curriculum" element={<Curriculum />} />
+                  <Route path="/courses" element={<Organization />} />
+                  <Route path="/gallery" element={<Community />} />
+                  <Route path="/news" element={<Community />} />
                   <Route path="/community" element={<Community />} />
                 </Routes>
               </main>

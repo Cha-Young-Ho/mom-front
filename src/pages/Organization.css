@@ -1,0 +1,238 @@
+.organization-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.organization-chart {
+  background: white;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.org-level-1,
+.org-level-2,
+.org-level-3 {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.org-level-1 {
+  margin-bottom: 60px;
+}
+
+.org-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.org-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.org-box.director {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  min-width: 300px;
+  padding: 35px;
+}
+
+.org-box.department {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  min-width: 250px;
+}
+
+.org-box.team {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  min-width: 200px;
+}
+
+.org-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.org-box h4 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.org-box h5 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.org-box p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.org-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.org-box li {
+  padding: 5px 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.org-box li:before {
+  content: "✓ ";
+  color: #ffffff;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.organization-stats {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.organization-stats h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* 연결선 스타일 */
+.org-level-1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 2px;
+  height: 30px;
+  background: #bdc3c7;
+  transform: translateX(-50%);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .organization-page {
+    padding: 20px 10px;
+  }
+  
+  .page-header {
+    padding: 25px;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .organization-chart {
+    padding: 25px;
+  }
+  
+  .org-level-1,
+  .org-level-2,
+  .org-level-3 {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .org-box {
+    min-width: auto;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}

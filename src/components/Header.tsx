@@ -12,73 +12,68 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="header">
-      <div className="header-top">
-        <div className="header-info">
-          <span>🌈 다양한 가족서비스 정보를 한눈에 × 고부갈등 마음여행 독서일기 3탄</span>
-        </div>
-        <div className="header-links">
+    <header className='header'>
+      <div className='header-top'>
+        <div className='header-info'>{/* 기존 안내 메시지 삭제됨 */}</div>
+        <div className='header-links'>
           <span>언어선택</span>
           <span>사이트맵 바로가기</span>
         </div>
       </div>
-      
-      <div className="header-main">
-        <div className="header-container">
-          <div className="logo">
-            <Link to="/">
-              <div className="logo-container">
-                <div className="logo-icon">
-                  <div className="logo-blocks">
-                    <div className="block block-1"></div>
-                    <div className="block block-2"></div>
-                    <div className="block block-3"></div>
-                    <div className="block block-4"></div>
+
+      <div className='header-main'>
+        <div className='header-container'>
+          <div className='logo'>
+            <Link to='/'>
+              <div className='logo-container'>
+                <div className='logo-icon'>
+                  <div className='logo-blocks'>
+                    <div className='block block-1'></div>
+                    <div className='block block-2'></div>
+                    <div className='block block-3'></div>
+                    <div className='block block-4'></div>
                   </div>
                 </div>
                 <h1>한국미래인적자원개발원</h1>
               </div>
             </Link>
           </div>
-           <nav className="navigation">
-            <Link 
-              to="/" 
-              className={location.pathname === '/' ? 'active' : ''}
-            >
+          <nav className='navigation'>
+            <Link to='/' className={location.pathname === '/' ? 'active' : ''}>
               센터소개
             </Link>
             <Link
-              to="/curriculum" 
+              to='/curriculum'
               className={location.pathname === '/curriculum' ? 'active' : ''}
             >
               취급업무
             </Link>
-            <Link 
-              to="/courses" 
+            <Link
+              to='/courses'
               className={location.pathname === '/courses' ? 'active' : ''}
             >
               교육대상
             </Link>
-            <Link 
-              to="/gallery" 
+            <Link
+              to='/gallery'
               className={location.pathname === '/gallery' ? 'active' : ''}
             >
               주요정보
             </Link>
-            <Link 
-              to="/news" 
+            <Link
+              to='/news'
               className={location.pathname === '/news' ? 'active' : ''}
             >
               센터소식
             </Link>
           </nav>
-          
-          <div className="contact-buttons">
-            <button className="contact-btn kakao-btn" onClick={handleKakaoChat}>
-              <span className="kakao-icon">💬</span>
-              <div className="btn-text">
-                <div className="btn-label">카카오톡 상담</div>
-                <div className="btn-subtitle">24시간 언제든지</div>
+
+          <div className='contact-buttons'>
+            <button className='contact-btn kakao-btn' onClick={handleKakaoChat}>
+              <span className='kakao-icon'>💬</span>
+              <div className='btn-text'>
+                <div className='btn-label'>카카오톡 상담</div>
+                <div className='btn-subtitle'>24시간 언제든지</div>
               </div>
             </button>
           </div>

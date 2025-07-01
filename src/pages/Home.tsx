@@ -65,7 +65,7 @@ const Home: React.FC = () => {
     <div className="home">
       {/* e-보건소 Link */}
       <div className="ehealth-link">
-        <a href="#" className="ehealth-btn">
+        <a href="https://www.e-bogunso.go.kr" target="_blank" rel="noopener noreferrer" className="ehealth-btn">
           🏠 e-보건소
         </a>
       </div>

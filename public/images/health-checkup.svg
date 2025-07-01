@@ -1,0 +1,40 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect width="400" height="300" fill="#f0f4f8"/>
+  
+  <!-- 병원 침대/검진대 -->
+  <rect x="120" y="160" width="160" height="80" fill="#ecf0f1" rx="8"/>
+  <rect x="100" y="240" width="20" height="40" fill="#95a5a6"/>
+  <rect x="280" y="240" width="20" height="40" fill="#95a5a6"/>
+  
+  <!-- 환자 -->
+  <ellipse cx="200" cy="180" rx="30" ry="15" fill="#3498db"/>
+  
+  <!-- 의료진 -->
+  <circle cx="320" cy="120" r="20" fill="#2ecc71"/>
+  <rect x="310" y="135" width="20" height="35" fill="#27ae60" rx="3"/>
+  
+  <!-- 청진기 -->
+  <circle cx="150" cy="100" r="25" fill="#e74c3c"/>
+  <path d="M 140 110 Q 150 120 160 110" stroke="#34495e" stroke-width="3" fill="none"/>
+  <circle cx="140" cy="110" r="8" fill="#34495e"/>
+  <circle cx="160" cy="110" r="8" fill="#34495e"/>
+  
+  <!-- 주사기 -->
+  <rect x="250" y="70" width="8" height="40" fill="#f39c12" rx="2"/>
+  <rect x="246" y="60" width="16" height="15" fill="#e67e22" rx="3"/>
+  <rect x="254" y="55" width="2" height="8" fill="#d35400"/>
+  
+  <!-- 차트/그래프 -->
+  <rect x="50" y="120" width="80" height="60" fill="white" stroke="#bdc3c7" stroke-width="2" rx="4"/>
+  <polyline points="60,160 70,140 80,150 90,130 100,135 110,125" stroke="#3498db" stroke-width="2" fill="none"/>
+  <circle cx="60" cy="160" r="2" fill="#3498db"/>
+  <circle cx="70" cy="140" r="2" fill="#3498db"/>
+  <circle cx="80" cy="150" r="2" fill="#3498db"/>
+  <circle cx="90" cy="130" r="2" fill="#3498db"/>
+  <circle cx="100" cy="135" r="2" fill="#3498db"/>
+  <circle cx="110" cy="125" r="2" fill="#3498db"/>
+  
+  <!-- 텍스트 -->
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold">건강검진 및 예방접종</text>
+</svg>

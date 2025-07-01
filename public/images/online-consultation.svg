@@ -1,0 +1,35 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect width="400" height="300" fill="#fff5f5"/>
+  
+  <!-- 노트북/컴퓨터 -->
+  <rect x="100" y="120" width="200" height="120" fill="#34495e" rx="8"/>
+  <rect x="110" y="130" width="180" height="90" fill="#ecf0f1" rx="4"/>
+  
+  <!-- 화면 내용 -->
+  <rect x="120" y="140" width="160" height="8" fill="#3498db" rx="2"/>
+  <rect x="120" y="155" width="120" height="6" fill="#95a5a6" rx="1"/>
+  <rect x="120" y="170" width="140" height="6" fill="#95a5a6" rx="1"/>
+  <rect x="120" y="185" width="100" height="6" fill="#95a5a6" rx="1"/>
+  
+  <!-- 채팅 버블 -->
+  <circle cx="250" cy="170" r="15" fill="#2ecc71"/>
+  <text x="250" y="175" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">💬</text>
+  
+  <!-- 키보드 -->
+  <rect x="120" y="250" width="160" height="30" fill="#bdc3c7" rx="4"/>
+  
+  <!-- 전화기 아이콘 -->
+  <circle cx="320" cy="80" r="30" fill="#e74c3c"/>
+  <text x="320" y="88" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle">📞</text>
+  
+  <!-- 예약 캘린더 -->
+  <rect x="50" y="50" width="80" height="60" fill="#f39c12" rx="5"/>
+  <rect x="60" y="65" width="60" height="8" fill="white" rx="2"/>
+  <rect x="60" y="80" width="25" height="6" fill="white" rx="1"/>
+  <rect x="95" y="80" width="25" height="6" fill="white" rx="1"/>
+  <rect x="60" y="92" width="25" height="6" fill="white" rx="1"/>
+  
+  <!-- 텍스트 -->
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold">온라인 상담 및 예약</text>
+</svg>

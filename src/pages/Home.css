@@ -1,0 +1,513 @@
+.home {
+  min-height: 100vh;
+  background: white;
+}
+
+/* Container for consistent width */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* e-보건소 Link */
+.ehealth-link {
+  position: absolute;
+  top: 120px;
+  left: 50px;
+  z-index: 10;
+}
+
+.ehealth-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #4a90e2;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ehealth-btn:hover {
+  background: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Main Hero Section */
+.main-hero {
+  background: white;
+  min-height: 480px;
+  position: relative;
+  border-bottom: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+/* Hero Slider */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slides-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-left h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  color: #2c3e50;
+}
+
+.hero-left p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+  color: #5a6c7d;
+}
+
+.portal-btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.portal-btn:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-illustration {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.hero-illustration:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 1.5rem;
+}
+
+.slide-image {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.slide-image:hover {
+  transform: scale(1.05);
+}
+
+.building-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.people-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.people-icons span {
+  font-size: 2rem;
+  padding: 0.5rem;
+  background: #e9ecef;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.people-icons span:hover {
+  background: #4a90e2;
+  transform: scale(1.1);
+}
+
+/* Slider Navigation */
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #e9ecef;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.slider-nav:hover {
+  background: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-nav.prev {
+  left: 20px;
+}
+
+.slider-nav.next {
+  right: 20px;
+}
+
+/* Slide Indicators */
+.slide-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #4a90e2;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: #4a90e2;
+  transform: scale(1.1);
+}
+
+/* Content Sections */
+.content-sections {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.content-section {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  padding: 1.5rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.section-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #6c757d;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab.active {
+  color: #fff;
+  background: #ff6b35;
+  border-radius: 15px 15px 0 0;
+  font-weight: 600;
+}
+
+.tab:not(.active):hover {
+  color: #495057;
+}
+
+.tab-more {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #6c757d;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.content-list {
+  padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.content-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.content-item:last-child {
+  border-bottom: none;
+}
+
+.item-tag {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.item-tag.green {
+  background: #d4edda;
+  color: #155724;
+}
+
+.item-tag.blue {
+  background: #cce7ff;
+  color: #0066cc;
+}
+
+.content-item h3 {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.content-item h3:hover {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+.item-date {
+  color: #6c757d;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ehealth-link {
+    top: 100px;
+    left: 20px;
+  }
+  
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+  .hero-left h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero-left p {
+    font-size: 1.1rem;
+  }
+  
+  .hero-illustration {
+    min-height: 280px;
+  }
+  
+  .image-container {
+    max-width: 240px;
+  }
+  
+  .slide-image {
+    max-height: 180px;
+  }
+  
+  .slider-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .slider-nav.prev {
+    left: 10px;
+  }
+  
+  .slider-nav.next {
+    right: 10px;
+  }
+  
+  .slide-indicators {
+    bottom: 20px;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .sections-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .section-tabs {
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+  
+  .content-list {
+    padding: 1rem;
+  }
+  
+  .content-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .item-date {
+    order: -1;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-left h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-illustration {
+    padding: 1.5rem;
+    min-height: 250px;
+  }
+  
+  .image-container {
+    max-width: 200px;
+  }
+  
+  .slide-image {
+    max-height: 150px;
+  }
+  
+  .building-icon {
+    font-size: 3rem;
+  }
+  
+  .people-icons span {
+    font-size: 1.5rem;
+  }
+  
+  .slider-nav {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .section-header {
+    padding: 1rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .portal-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}

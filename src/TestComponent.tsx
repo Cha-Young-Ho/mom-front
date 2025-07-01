@@ -1,20 +1,12 @@
-// 의도적으로 ESLint 오류가 있는 코드
+import React from 'react';
 
-const TestComponent = () => {
-  // unusedVariable 제거 (사용하지 않으므로)
-  let name = "John";
-  name = "Jane";
-  
-  // === 사용 (엄격한 비교)
-  if (name === "John") {
-    console.log("Hello");
-  }
-  
-  // any 타입 대신 구체적 타입 사용
-  const specificValue: string = "test";
-  console.log(specificValue);
-  
-  return <div>Test Component</div>;
+const TestComponent: React.FC = () => {
+  return (
+    <div className="test-component">
+      <h2>테스트 컴포넌트</h2>
+      <p>이것은 테스트용 컴포넌트입니다.</p>
+    </div>
+  );
 };
 
 export default TestComponent;

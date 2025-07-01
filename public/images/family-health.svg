@@ -1,0 +1,36 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect width="400" height="300" fill="#e8f5e8"/>
+  
+  <!-- 가족 실루엣 -->
+  <g transform="translate(150, 80)">
+    <!-- 아빠 -->
+    <circle cx="20" cy="30" r="20" fill="#3498db"/>
+    <rect x="10" y="45" width="20" height="40" fill="#2980b9" rx="3"/>
+    
+    <!-- 엄마 -->
+    <circle cx="60" cy="30" r="18" fill="#e91e63"/>
+    <rect x="52" y="45" width="16" height="40" fill="#c2185b" rx="3"/>
+    
+    <!-- 아이1 -->
+    <circle cx="90" cy="40" r="12" fill="#f39c12"/>
+    <rect x="85" y="50" width="10" height="25" fill="#e67e22" rx="2"/>
+    
+    <!-- 아이2 -->
+    <circle cx="110" cy="45" r="10" fill="#9b59b6"/>
+    <rect x="106" y="53" width="8" height="20" fill="#8e44ad" rx="2"/>
+  </g>
+  
+  <!-- 건강 아이콘들 -->
+  <circle cx="80" cy="150" r="25" fill="#2ecc71"/>
+  <text x="80" y="158" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">♥</text>
+  
+  <circle cx="200" cy="220" r="25" fill="#e74c3c"/>
+  <text x="200" y="228" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">+</text>
+  
+  <circle cx="320" cy="160" r="25" fill="#f39c12"/>
+  <text x="320" y="168" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">⚕</text>
+  
+  <!-- 텍스트 -->
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold">가족 건강 관리</text>
+</svg>

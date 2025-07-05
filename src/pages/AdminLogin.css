@@ -59,6 +59,8 @@
   font-size: 16px;
   transition: all 0.2s ease;
   background: #f8f9fa;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .form-group input:focus {

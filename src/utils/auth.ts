@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { getApiUrl } from '../config/api';
 
 // Admin 권한 관련 함수들
 export const isAdmin = (): boolean => {
@@ -20,47 +21,70 @@ export const authAPI = {
 
   // 로그인 API
   async login(username: string, password: string) {
-    // Mock API - 실제 구현 시 서버로 요청
-    return new Promise<{ success: boolean; token?: string; message?: string }>(
-      resolve => {
-        setTimeout(() => {
-          if (username === 'admin' && password === 'admin123') {
-            const mockToken = 'mock-jwt-token-' + Date.now();
-            resolve({
-              success: true,
-              token: mockToken,
-            });
-          } else {
-            resolve({
-              success: false,
-              message: '아이디 또는 비밀번호가 잘못되었습니다.',
-            });
-          }
-        }, 1000); // 네트워크 지연 시뮬레이션
+    try {
+      const response = await fetch(getApiUrl('/auth/login'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        return {
+          success: true,
+          token: data.token,
+        };
+      } else {
+        return {
+          success: false,
+          message: data.message || '로그인에 실패했습니다.',
+        };
       }
-    );
+    } catch (error) {
+      console.error('Login request failed:', error);
+      return {
+        success: false,
+        message: '서버 연결에 실패했습니다.',
+      };
+    }
   },
 
   // 사용자 정보 조회
   async getMe() {
-    return new Promise<{ success: boolean; user?: any }>(resolve => {
-      setTimeout(() => {
-        const token = Cookies.get('admin_token');
-        if (token) {
-          resolve({
-            success: true,
-            user: {
-              username: 'admin',
-              role: 'administrator',
-            },
-          });
-        } else {
-          resolve({
-            success: false,
-          });
-        }
-      }, 500);
-    });
+    try {
+      const token = Cookies.get('admin_token');
+      if (!token) {
+        return { success: false };
+      }
+
+      const response = await fetch(getApiUrl('/auth/me'), {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        return {
+          success: true,
+          user: data.user,
+        };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Get user info failed:', error);
+      return { success: false };
+    }
   },
 
   // 로그아웃

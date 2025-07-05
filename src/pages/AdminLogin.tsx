@@ -121,7 +121,6 @@ const AdminLogin: React.FC = () => {
         </form>
 
         <div className='login-footer'>
-          <p>테스트 계정: admin / admin123</p>
           <p>문의사항이 있으시면 시스템 관리자에게 연락해주세요.</p>
         </div>
       </div>

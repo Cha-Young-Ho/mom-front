@@ -1,4 +1,10 @@
-import { Route, BrowserRouter as Router, Routes, Link, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import AdminLogin from './pages/AdminLogin';
@@ -45,7 +51,7 @@ function App() {
 // 숨겨진 로그인 버튼 컴포넌트
 function HiddenLoginButton() {
   const location = useLocation();
-  
+
   // 관리자가 이미 로그인되어 있거나 admin 페이지에 있으면 버튼 숨김
   if (isAdmin() || location.pathname === '/admin') {
     return null;

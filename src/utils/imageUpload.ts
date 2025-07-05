@@ -1,5 +1,5 @@
 // S3 Presigned URL 기반 이미지 업로드 유틸리티
-import { uploadAPI, newsUploadAPI, galleryUploadAPI } from '../services/api';
+import { galleryUploadAPI, newsUploadAPI, uploadAPI } from '../services/api';
 
 // 지원하는 이미지 타입
 const SUPPORTED_TYPES = [
@@ -61,7 +61,9 @@ export interface UploadResult {
 }
 
 // News용 이미지 업로드
-export const uploadImageToNewsS3 = async (file: File): Promise<UploadResult> => {
+export const uploadImageToNewsS3 = async (
+  file: File
+): Promise<UploadResult> => {
   try {
     // 1. 파일 유효성 검사
     const validation = validateImageFile(file);
@@ -95,7 +97,9 @@ export const uploadImageToNewsS3 = async (file: File): Promise<UploadResult> => 
 };
 
 // Gallery용 이미지 업로드
-export const uploadImageToGalleryS3 = async (file: File): Promise<UploadResult> => {
+export const uploadImageToGalleryS3 = async (
+  file: File
+): Promise<UploadResult> => {
   try {
     // 1. 파일 유효성 검사
     const validation = validateImageFile(file);

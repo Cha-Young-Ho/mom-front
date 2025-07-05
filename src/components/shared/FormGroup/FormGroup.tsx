@@ -9,6 +9,7 @@ interface FormGroupProps {
   className?: string;
   labelClassName?: string;
   errorClassName?: string;
+  htmlFor?: string;
 }
 
 const FormGroup: React.FC<FormGroupProps> = ({
@@ -19,11 +20,12 @@ const FormGroup: React.FC<FormGroupProps> = ({
   className = '',
   labelClassName = '',
   errorClassName = '',
+  htmlFor,
 }) => {
   return (
     <div className={`form-group ${className}`}>
       {label && (
-        <label className={`form-label ${labelClassName}`}>
+        <label className={`form-label ${labelClassName}`} htmlFor={htmlFor}>
           {label}
           {required && <span className='required-asterisk'>*</span>}
         </label>

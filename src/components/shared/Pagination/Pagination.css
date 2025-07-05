@@ -43,6 +43,16 @@
   font-weight: 500;
 }
 
+.pagination-ellipsis {
+  padding: 10px 15px;
+  color: #495057;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .pagination {

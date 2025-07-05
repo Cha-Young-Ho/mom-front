@@ -3,222 +3,222 @@ name: Deploy React App to S3
 on:
   push:
     tags:
-      - 'v*.*.*'  # v1.0.0, v1.2.3 등의 태그 푸시 시 트리거
-  workflow_dispatch:  # 수동 실행 허용
+      - 'v*.*.*' # v1.0.0, v1.2.3 등의 태그 푸시 시 트리거
+  workflow_dispatch: # 수동 실행 허용
 
 env:
-  AWS_REGION: ap-northeast-2  # 원하는 AWS 리전으로 변경
-  S3_BUCKET: ${{ secrets.S3_BUCKET || 'your-bucket-name-here' }}  # S3 버킷 이름
-  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID || 'E1234567890ABC' }}  # CloudFront 배포 ID
+  AWS_REGION: ap-northeast-2 # 원하는 AWS 리전으로 변경
+  S3_BUCKET: ${{ secrets.S3_BUCKET || 'your-bucket-name-here' }} # S3 버킷 이름
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID || 'E1234567890ABC' }} # CloudFront 배포 ID
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write   # OIDC에 필요한 권한
-      contents: read    # 코드 체크아웃에 필요한 권한
-    
+      id-token: write # OIDC에 필요한 권한
+      contents: read # 코드 체크아웃에 필요한 권한
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Extract version from tag
-      id: version
-      run: |
-        if [[ $GITHUB_REF == refs/tags/* ]]; then
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          VERSION=${TAG_NAME#v}  # v1.0.0 -> 1.0.0
-        else
-          TAG_NAME="manual-deploy"
-          VERSION="latest"
-        fi
-        
-        echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        
-        echo "🏷️ Tag: $TAG_NAME"
-        echo "📦 Version: $VERSION"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: |
-        echo "📦 Installing dependencies..."
-        npm ci --production=false
-        echo "✅ Dependencies installed"
-
-    - name: Run code quality checks
-      run: |
-        echo "🔍 Running code quality checks..."
-        npm run lint
-        npm run type-check
-        echo "✅ Code quality checks passed"
-
-    - name: Create production environment file
-      run: |
-        echo "REACT_APP_VERSION=${{ steps.version.outputs.version }}" >> .env.production
-        echo "REACT_APP_BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> .env.production
-        echo "REACT_APP_ENVIRONMENT=production" >> .env.production
-        echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env.production
-        echo "🔧 Production environment variables created"
-        echo "📋 Environment variables:"
-        echo "   - REACT_APP_VERSION: ${{ steps.version.outputs.version }}"
-        echo "   - REACT_APP_ENVIRONMENT: production"
-        echo "   - REACT_APP_API_URL: [SECURED]"
-
-    - name: Build React app
-      run: |
-        echo "🔨 Building React application..."
-        npm run build
-        echo "✅ Build completed successfully"
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Deploy to S3
-      run: |
-        echo "☁️ Deploying to S3 bucket: ${{ env.S3_BUCKET }}"
-        
-        # 배포 전 버킷 존재 확인
-        if ! aws s3 ls s3://${{ env.S3_BUCKET }} > /dev/null 2>&1; then
-          echo "❌ Error: S3 bucket '${{ env.S3_BUCKET }}' does not exist or is not accessible"
-          exit 1
-        fi
-        
-        # 정적 assets (JS, CSS, 이미지 등)에 대한 캐시 설정 (1년)
-        echo "📤 Uploading static assets with long-term caching..."
-        aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
-          --delete \
-          --cache-control "max-age=31536000, immutable" \
-          --exclude "*.html" \
-          --exclude "service-worker.js" \
-          --exclude "manifest.json" \
-          --exclude "robots.txt" \
-          --exclude "*.map"
-        
-        # HTML 파일과 서비스 워커는 캐시하지 않음
-        echo "📄 Uploading HTML and service worker files with no-cache..."
-        aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
-          --cache-control "no-cache, no-store, must-revalidate" \
-          --include "*.html" \
-          --include "service-worker.js" \
-          --include "manifest.json" \
-          --include "robots.txt"
-        
-        # Source map 파일들은 별도 처리 (프로덕션에서는 제외할 수 있음)
-        echo "🗺️ Uploading source maps..."
-        aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
-          --cache-control "max-age=31536000" \
-          --include "*.map"
-        
-        echo "✅ S3 deployment completed"
-
-    - name: Invalidate CloudFront
-      if: env.CLOUDFRONT_DISTRIBUTION_ID != 'E1234567890ABC' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
-      run: |
-        echo "🔄 Invalidating CloudFront distribution: ${{ env.CLOUDFRONT_DISTRIBUTION_ID }}"
-        
-        # CloudFront 배포 상태 확인
-        DISTRIBUTION_STATUS=$(aws cloudfront get-distribution \
-          --id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --query 'Distribution.Status' \
-          --output text)
-        
-        if [ "$DISTRIBUTION_STATUS" != "Deployed" ]; then
-          echo "⚠️ Warning: Distribution is in '$DISTRIBUTION_STATUS' state. Proceeding with invalidation..."
-        fi
-        
-        # 무효화 생성
-        INVALIDATION_ID=$(aws cloudfront create-invalidation \
-          --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "/*" \
-          --query 'Invalidation.Id' \
-          --output text)
-        
-        echo "🔄 Invalidation created with ID: $INVALIDATION_ID"
-        echo "⏳ Waiting for invalidation to complete..."
-        
-        # 무효화 완료 대기 (타임아웃 15분)
-        timeout 900 aws cloudfront wait invalidation-completed \
-          --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --id $INVALIDATION_ID || {
-            echo "⚠️ Invalidation is taking longer than expected, but deployment continues..."
-            echo "🔗 Check invalidation status at: https://console.aws.amazon.com/cloudfront/"
-            exit 0
-          }
-        
-        echo "✅ CloudFront invalidation completed"
-
-    - name: Get deployment URLs
-      id: deployment-urls
-      run: |
-        S3_WEBSITE_URL="https://${{ env.S3_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
-        echo "s3-website-url=$S3_WEBSITE_URL" >> $GITHUB_OUTPUT
-        
-        if [[ "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" != "E1234567890ABC" && "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" != "" ]]; then
-          CLOUDFRONT_DOMAIN=$(aws cloudfront get-distribution \
-            --id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --query 'Distribution.DomainName' \
-            --output text)
-          CLOUDFRONT_URL="https://$CLOUDFRONT_DOMAIN"
-          echo "cloudfront-url=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
-          echo "🌐 CloudFront URL: $CLOUDFRONT_URL"
-        fi
-        
-        echo "🌐 S3 Website URL: $S3_WEBSITE_URL"
-
-    - name: Create deployment summary
-      run: |
-        echo "🎉 React 앱 배포 완료!"
-        echo "📋 배포 정보:"
-        echo "   📦 Tag: ${{ steps.version.outputs.tag }}"
-        echo "   🔢 Version: ${{ steps.version.outputs.version }}"
-        echo "   ☁️ S3 Bucket: ${{ env.S3_BUCKET }}"
-        echo "   🌍 AWS Region: ${{ env.AWS_REGION }}"
-        echo "   ⏰ Deploy Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        echo ""
-        echo "🔗 접속 URL:"
-        echo "   📄 S3 Website: ${{ steps.deployment-urls.outputs.s3-website-url }}"
-        
-        if [[ "${{ steps.deployment-urls.outputs.cloudfront-url }}" != "" ]]; then
-          echo "   ⚡ CloudFront CDN: ${{ steps.deployment-urls.outputs.cloudfront-url }}"
-          echo "   🔄 Distribution ID: ${{ env.CLOUDFRONT_DISTRIBUTION_ID }}"
-        fi
-        
-        echo ""
-        echo "📊 배포 통계:"
-        BUILD_SIZE=$(du -sh build/ | cut -f1)
-        FILE_COUNT=$(find build/ -type f | wc -l | tr -d ' ')
-        echo "   📁 Build Size: $BUILD_SIZE"
-        echo "   📄 File Count: $FILE_COUNT files"
-        
-        echo ""
-        echo "✅ 배포가 성공적으로 완료되었습니다!"
-        
-        # GitHub Summary에 결과 기록
-        {
-          echo "## 🚀 배포 완료"
-          echo ""
-          echo "| 항목 | 값 |"
-          echo "|------|-----|"
-          echo "| 📦 Tag | ${{ steps.version.outputs.tag }} |"
-          echo "| 🔢 Version | ${{ steps.version.outputs.version }} |"
-          echo "| ☁️ S3 Bucket | ${{ env.S3_BUCKET }} |"
-          echo "| 🌍 Region | ${{ env.AWS_REGION }} |"
-          echo "| ⏰ Deploy Time | $(date -u '+%Y-%m-%d %H:%M:%S UTC') |"
-          echo "| 📁 Build Size | $BUILD_SIZE |"
-          echo "| 📄 File Count | $FILE_COUNT files |"
-          echo ""
-          echo "### 🔗 접속 URL"
-          echo "- 📄 [S3 Website](${{ steps.deployment-urls.outputs.s3-website-url }})"
-          if [[ "${{ steps.deployment-urls.outputs.cloudfront-url }}" != "" ]]; then
-            echo "- ⚡ [CloudFront CDN](${{ steps.deployment-urls.outputs.cloudfront-url }})"
+      - name: Extract version from tag
+        id: version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAG_NAME=${GITHUB_REF#refs/tags/}
+            VERSION=${TAG_NAME#v}  # v1.0.0 -> 1.0.0
+          else
+            TAG_NAME="manual-deploy"
+            VERSION="latest"
           fi
-        } >> $GITHUB_STEP_SUMMARY
+
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          echo "🏷️ Tag: $TAG_NAME"
+          echo "📦 Version: $VERSION"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          echo "📦 Installing dependencies..."
+          npm ci --production=false
+          echo "✅ Dependencies installed"
+
+      - name: Run code quality checks
+        run: |
+          echo "🔍 Running code quality checks..."
+          npm run lint
+          npm run type-check
+          echo "✅ Code quality checks passed"
+
+      - name: Create production environment file
+        run: |
+          echo "REACT_APP_VERSION=${{ steps.version.outputs.version }}" >> .env.production
+          echo "REACT_APP_BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> .env.production
+          echo "REACT_APP_ENVIRONMENT=production" >> .env.production
+          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env.production
+          echo "🔧 Production environment variables created"
+          echo "📋 Environment variables:"
+          echo "   - REACT_APP_VERSION: ${{ steps.version.outputs.version }}"
+          echo "   - REACT_APP_ENVIRONMENT: production"
+          echo "   - REACT_APP_API_URL: [SECURED]"
+
+      - name: Build React app
+        run: |
+          echo "🔨 Building React application..."
+          npm run build
+          echo "✅ Build completed successfully"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          echo "☁️ Deploying to S3 bucket: ${{ env.S3_BUCKET }}"
+
+          # 배포 전 버킷 존재 확인
+          if ! aws s3 ls s3://${{ env.S3_BUCKET }} > /dev/null 2>&1; then
+            echo "❌ Error: S3 bucket '${{ env.S3_BUCKET }}' does not exist or is not accessible"
+            exit 1
+          fi
+
+          # 정적 assets (JS, CSS, 이미지 등)에 대한 캐시 설정 (1년)
+          echo "📤 Uploading static assets with long-term caching..."
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --delete \
+            --cache-control "max-age=31536000, immutable" \
+            --exclude "*.html" \
+            --exclude "service-worker.js" \
+            --exclude "manifest.json" \
+            --exclude "robots.txt" \
+            --exclude "*.map"
+
+          # HTML 파일과 서비스 워커는 캐시하지 않음
+          echo "📄 Uploading HTML and service worker files with no-cache..."
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --cache-control "no-cache, no-store, must-revalidate" \
+            --include "*.html" \
+            --include "service-worker.js" \
+            --include "manifest.json" \
+            --include "robots.txt"
+
+          # Source map 파일들은 별도 처리 (프로덕션에서는 제외할 수 있음)
+          echo "🗺️ Uploading source maps..."
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --cache-control "max-age=31536000" \
+            --include "*.map"
+
+          echo "✅ S3 deployment completed"
+
+      - name: Invalidate CloudFront
+        if: env.CLOUDFRONT_DISTRIBUTION_ID != 'E1234567890ABC' && env.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          echo "🔄 Invalidating CloudFront distribution: ${{ env.CLOUDFRONT_DISTRIBUTION_ID }}"
+
+          # CloudFront 배포 상태 확인
+          DISTRIBUTION_STATUS=$(aws cloudfront get-distribution \
+            --id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --query 'Distribution.Status' \
+            --output text)
+
+          if [ "$DISTRIBUTION_STATUS" != "Deployed" ]; then
+            echo "⚠️ Warning: Distribution is in '$DISTRIBUTION_STATUS' state. Proceeding with invalidation..."
+          fi
+
+          # 무효화 생성
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+
+          echo "🔄 Invalidation created with ID: $INVALIDATION_ID"
+          echo "⏳ Waiting for invalidation to complete..."
+
+          # 무효화 완료 대기 (타임아웃 15분)
+          timeout 900 aws cloudfront wait invalidation-completed \
+            --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --id $INVALIDATION_ID || {
+              echo "⚠️ Invalidation is taking longer than expected, but deployment continues..."
+              echo "🔗 Check invalidation status at: https://console.aws.amazon.com/cloudfront/"
+              exit 0
+            }
+
+          echo "✅ CloudFront invalidation completed"
+
+      - name: Get deployment URLs
+        id: deployment-urls
+        run: |
+          S3_WEBSITE_URL="https://${{ env.S3_BUCKET }}.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+          echo "s3-website-url=$S3_WEBSITE_URL" >> $GITHUB_OUTPUT
+
+          if [[ "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" != "E1234567890ABC" && "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" != "" ]]; then
+            CLOUDFRONT_DOMAIN=$(aws cloudfront get-distribution \
+              --id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+              --query 'Distribution.DomainName' \
+              --output text)
+            CLOUDFRONT_URL="https://$CLOUDFRONT_DOMAIN"
+            echo "cloudfront-url=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
+            echo "🌐 CloudFront URL: $CLOUDFRONT_URL"
+          fi
+
+          echo "🌐 S3 Website URL: $S3_WEBSITE_URL"
+
+      - name: Create deployment summary
+        run: |
+          echo "🎉 React 앱 배포 완료!"
+          echo "📋 배포 정보:"
+          echo "   📦 Tag: ${{ steps.version.outputs.tag }}"
+          echo "   🔢 Version: ${{ steps.version.outputs.version }}"
+          echo "   ☁️ S3 Bucket: ${{ env.S3_BUCKET }}"
+          echo "   🌍 AWS Region: ${{ env.AWS_REGION }}"
+          echo "   ⏰ Deploy Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+          echo "🔗 접속 URL:"
+          echo "   📄 S3 Website: ${{ steps.deployment-urls.outputs.s3-website-url }}"
+
+          if [[ "${{ steps.deployment-urls.outputs.cloudfront-url }}" != "" ]]; then
+            echo "   ⚡ CloudFront CDN: ${{ steps.deployment-urls.outputs.cloudfront-url }}"
+            echo "   🔄 Distribution ID: ${{ env.CLOUDFRONT_DISTRIBUTION_ID }}"
+          fi
+
+          echo ""
+          echo "📊 배포 통계:"
+          BUILD_SIZE=$(du -sh build/ | cut -f1)
+          FILE_COUNT=$(find build/ -type f | wc -l | tr -d ' ')
+          echo "   📁 Build Size: $BUILD_SIZE"
+          echo "   📄 File Count: $FILE_COUNT files"
+
+          echo ""
+          echo "✅ 배포가 성공적으로 완료되었습니다!"
+
+          # GitHub Summary에 결과 기록
+          {
+            echo "## 🚀 배포 완료"
+            echo ""
+            echo "| 항목 | 값 |"
+            echo "|------|-----|"
+            echo "| 📦 Tag | ${{ steps.version.outputs.tag }} |"
+            echo "| 🔢 Version | ${{ steps.version.outputs.version }} |"
+            echo "| ☁️ S3 Bucket | ${{ env.S3_BUCKET }} |"
+            echo "| 🌍 Region | ${{ env.AWS_REGION }} |"
+            echo "| ⏰ Deploy Time | $(date -u '+%Y-%m-%d %H:%M:%S UTC') |"
+            echo "| 📁 Build Size | $BUILD_SIZE |"
+            echo "| 📄 File Count | $FILE_COUNT files |"
+            echo ""
+            echo "### 🔗 접속 URL"
+            echo "- 📄 [S3 Website](${{ steps.deployment-urls.outputs.s3-website-url }})"
+            if [[ "${{ steps.deployment-urls.outputs.cloudfront-url }}" != "" ]]; then
+              echo "- ⚡ [CloudFront CDN](${{ steps.deployment-urls.outputs.cloudfront-url }})"
+            fi
+          } >> $GITHUB_STEP_SUMMARY

@@ -50,8 +50,10 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className='modal-overlay' onClick={handleOverlayClick}>
       <div
-        className={`modal-content ${size} ${className}`}
+        className={`modal-content modal-${size} ${className}`}
         onClick={e => e.stopPropagation()}
+        role='dialog'
+        data-testid='modal-content'
       >
         {title && (
           <div className='modal-header'>

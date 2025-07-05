@@ -312,7 +312,9 @@ export const newsUploadAPI = {
     });
 
     if (!response.ok) {
-      throw new Error(`S3 업로드 실패: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `S3 업로드 실패: ${response.status} ${response.statusText}`
+      );
     }
   },
 
@@ -355,7 +357,9 @@ export const galleryUploadAPI = {
     });
 
     if (!response.ok) {
-      throw new Error(`S3 업로드 실패: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `S3 업로드 실패: ${response.status} ${response.statusText}`
+      );
     }
   },
 

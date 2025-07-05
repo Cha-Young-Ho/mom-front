@@ -1,7 +1,7 @@
 // API 설정 파일
 export const API_CONFIG = {
   // 환경별 API URL 설정
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3001',
+  baseURL: process.env.REACT_APP_API_URL || 'https://your-api-server.com',
 
   // API 엔드포인트
   endpoints: {

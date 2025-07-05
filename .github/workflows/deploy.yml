@@ -63,8 +63,12 @@ jobs:
         echo "REACT_APP_VERSION=${{ steps.version.outputs.version }}" >> .env.production
         echo "REACT_APP_BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> .env.production
         echo "REACT_APP_ENVIRONMENT=production" >> .env.production
-        # 추가 환경 변수가 있다면 여기에 추가
+        echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env.production
         echo "🔧 Production environment variables created"
+        echo "📋 Environment variables:"
+        echo "   - REACT_APP_VERSION: ${{ steps.version.outputs.version }}"
+        echo "   - REACT_APP_ENVIRONMENT: production"
+        echo "   - REACT_APP_API_URL: [SECURED]"
 
     - name: Build React app
       run: |

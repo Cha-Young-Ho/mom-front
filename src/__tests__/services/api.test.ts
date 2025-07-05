@@ -19,23 +19,6 @@ const mockPosts = [
 global.fetch = jest.fn();
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>;
 
-// Helper function to create mock responses
-const createMockResponse = (
-  data: any,
-  ok = true,
-  status = 200,
-  statusText = 'OK'
-) =>
-  ({
-    ok,
-    status,
-    statusText,
-    headers: {
-      get: jest.fn().mockReturnValue('application/json'),
-    },
-    json: () => Promise.resolve(data),
-  } as any);
-
 describe('API Services', () => {
   beforeEach(() => {
     jest.clearAllMocks();

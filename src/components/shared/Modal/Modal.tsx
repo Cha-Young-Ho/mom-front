@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className='modal-overlay' onClick={handleOverlayClick}>
+    <div className='modal-overlay' onClick={handleOverlayClick} data-testid='modal-overlay'>
       <div
         className={`modal-content modal-${size} ${className}`}
         onClick={e => e.stopPropagation()}

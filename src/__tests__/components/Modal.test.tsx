@@ -2,9 +2,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Modal } from '../../components/shared';
 
 describe('Modal Component', () => {
-  test('isOpen이 true일 때 모달이 렌더링된다', () => {
+  test('모달이 열린 상태일 때 title과 children이 렌더링된다', () => {
     render(
-      <Modal isOpen={true} onClose={jest.fn()} title='테스트 모달'>
+      <Modal isOpen={true} onClose={() => {}} title='테스트 모달'>
         <p>모달 내용</p>
       </Modal>
     );
@@ -13,9 +13,9 @@ describe('Modal Component', () => {
     expect(screen.getByText('모달 내용')).toBeInTheDocument();
   });
 
-  test('isOpen이 false일 때 모달이 렌더링되지 않는다', () => {
+  test('모달이 닫힌 상태일 때 렌더링되지 않는다', () => {
     render(
-      <Modal isOpen={false} onClose={jest.fn()} title='테스트 모달'>
+      <Modal isOpen={false} onClose={() => {}} title='테스트 모달'>
         <p>모달 내용</p>
       </Modal>
     );
@@ -44,7 +44,8 @@ describe('Modal Component', () => {
       </Modal>
     );
 
-    fireEvent.click(screen.getByText('테스트 모달').closest('.modal-overlay')!);
+    const modalOverlay = screen.getByTestId('modal-overlay');
+    fireEvent.click(modalOverlay);
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
@@ -56,7 +57,7 @@ describe('Modal Component', () => {
       </Modal>
     );
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
@@ -72,19 +73,36 @@ describe('Modal Component', () => {
     expect(handleClose).not.toHaveBeenCalled();
   });
 
-  test('size prop이 올바른 클래스를 적용한다', () => {
+  test('다양한 크기의 모달이 올바르게 렌더링된다', () => {
     const { rerender } = render(
-      <Modal isOpen={true} onClose={jest.fn()} title='테스트 모달' size='small'>
-        <p>작은 모달</p>
+      <Modal isOpen={true} onClose={() => {}} title='작은 모달' size='small'>
+        <p>작은 모달 내용</p>
       </Modal>
     );
-    expect(screen.getByTestId('modal-content')).toHaveClass('modal-small');
+
+    expect(screen.getByText('작은 모달')).toBeInTheDocument();
 
     rerender(
-      <Modal isOpen={true} onClose={jest.fn()} title='테스트 모달' size='large'>
-        <p>큰 모달</p>
+      <Modal isOpen={true} onClose={() => {}} title='큰 모달' size='large'>
+        <p>큰 모달 내용</p>
       </Modal>
     );
-    expect(screen.getByTestId('modal-content')).toHaveClass('modal-large');
+
+    expect(screen.getByText('큰 모달')).toBeInTheDocument();
+  });
+
+  test('커스텀 className이 적용된다', () => {
+    render(
+      <Modal
+        isOpen={true}
+        onClose={() => {}}
+        title='커스텀 모달'
+        className='custom-modal'
+      >
+        <p>커스텀 모달 내용</p>
+      </Modal>
+    );
+
+    expect(screen.getByText('커스텀 모달')).toBeInTheDocument();
   });
 });

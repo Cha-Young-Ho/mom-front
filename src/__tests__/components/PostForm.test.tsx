@@ -28,10 +28,10 @@ describe('PostForm Component', () => {
   test('폼이 올바르게 렌더링된다', () => {
     render(<PostForm {...defaultProps} />);
 
-    expect(document.getElementById('title')).toBeInTheDocument();
-    expect(document.getElementById('content')).toBeInTheDocument();
-    expect(document.getElementById('category')).toBeInTheDocument();
-    expect(document.getElementById('short_description')).toBeInTheDocument();
+    expect(screen.getByTestId('title-input')).toBeInTheDocument();
+    expect(screen.getByTestId('content-textarea')).toBeInTheDocument();
+    expect(screen.getByTestId('category-select')).toBeInTheDocument();
+    expect(screen.getByTestId('short-description-input')).toBeInTheDocument();
     expect(screen.getByText('저장')).toBeInTheDocument();
     expect(screen.getByText('취소')).toBeInTheDocument();
   });
@@ -52,16 +52,16 @@ describe('PostForm Component', () => {
     const handleSubmit = jest.fn();
     render(<PostForm {...defaultProps} onSubmit={handleSubmit} />);
 
-    fireEvent.change(document.getElementById('title')!, {
+    fireEvent.change(screen.getByTestId('title-input'), {
       target: { value: '테스트 제목' },
     });
-    fireEvent.change(document.getElementById('content')!, {
+    fireEvent.change(screen.getByTestId('content-textarea'), {
       target: { value: '테스트 내용' },
     });
-    fireEvent.change(document.getElementById('category')!, {
+    fireEvent.change(screen.getByTestId('category-select'), {
       target: { value: '공지사항' },
     });
-    fireEvent.change(document.getElementById('short_description')!, {
+    fireEvent.change(screen.getByTestId('short-description-input'), {
       target: { value: '테스트 요약' },
     });
 
@@ -85,9 +85,9 @@ describe('PostForm Component', () => {
 
     await waitFor(() => {
       expect(screen.getByText('제목을 입력해주세요.')).toBeInTheDocument();
-      expect(screen.getByText('내용을 입력해주세요.')).toBeInTheDocument();
-      // 카테고리는 기본값이 있어서 선택 필수가 아님
     });
+    expect(screen.getByText('내용을 입력해주세요.')).toBeInTheDocument();
+    // 카테고리는 기본값이 있어서 선택 필수가 아님
   });
 
   test('취소 버튼 클릭 시 onClose가 호출된다', () => {
@@ -100,7 +100,7 @@ describe('PostForm Component', () => {
   test('이미지 업로드가 정상적으로 작동한다', async () => {
     render(<PostForm {...defaultProps} />);
 
-    const fileInput = document.getElementById('image-upload') as HTMLInputElement;
+    const fileInput = screen.getByTestId('image-upload-input') as HTMLInputElement;
     const file = new File(['test image'], 'test.jpg', { type: 'image/jpeg' });
 
     fireEvent.change(fileInput, { target: { files: [file] } });
@@ -113,7 +113,7 @@ describe('PostForm Component', () => {
   test('카테고리 옵션이 올바르게 렌더링된다', () => {
     render(<PostForm {...defaultProps} />);
 
-    const categorySelect = document.getElementById('category') as HTMLSelectElement;
+    const categorySelect = screen.getByTestId('category-select') as HTMLSelectElement;
     expect(categorySelect).toBeInTheDocument();
     testCategories.forEach(category => {
       expect(screen.getByText(category)).toBeInTheDocument();
@@ -130,10 +130,10 @@ describe('PostForm Component', () => {
     render(<PostForm {...defaultProps} onSubmit={slowSubmit} />);
 
     // Fill out form and submit to trigger loading state
-    fireEvent.change(document.getElementById('title')!, {
+    fireEvent.change(screen.getByTestId('title-input'), {
       target: { value: '테스트 제목' },
     });
-    fireEvent.change(document.getElementById('content')!, {
+    fireEvent.change(screen.getByTestId('content-textarea'), {
       target: { value: '테스트 내용' },
     });
 
@@ -149,7 +149,7 @@ describe('PostForm Component', () => {
     render(<PostForm {...defaultProps} />);
 
     const longTitle = 'a'.repeat(101); // 100자 초과
-    fireEvent.change(document.getElementById('title')!, {
+    fireEvent.change(screen.getByTestId('title-input'), {
       target: { value: longTitle },
     });
 

@@ -165,20 +165,20 @@ describe('PostPage Component', () => {
     fireEvent.click(screen.getByText('새 게시글 작성'));
 
     await waitFor(() => {
-      expect(document.getElementById('title')).toBeInTheDocument();
+      expect(screen.getByTestId('title-input')).toBeInTheDocument();
     });
 
     // 폼 작성
-    fireEvent.change(document.getElementById('title')!, {
+    fireEvent.change(screen.getByTestId('title-input'), {
       target: { value: '새 게시글' },
     });
-    fireEvent.change(document.getElementById('content')!, {
+    fireEvent.change(screen.getByTestId('content-textarea'), {
       target: { value: '새 게시글 내용' },
     });
-    fireEvent.change(document.getElementById('category')!, {
+    fireEvent.change(screen.getByTestId('category-select'), {
       target: { value: '공지사항' },
     });
-    fireEvent.change(document.getElementById('short_description')!, {
+    fireEvent.change(screen.getByTestId('short-description-input'), {
       target: { value: '새 게시글 요약' },
     });
 

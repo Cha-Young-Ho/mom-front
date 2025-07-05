@@ -175,6 +175,7 @@ const PostForm: React.FC<PostFormProps> = ({
             placeholder='제목을 입력하세요'
             className='form-input'
             disabled={uploading}
+            data-testid='title-input'
           />
         </FormGroup>
 
@@ -191,6 +192,7 @@ const PostForm: React.FC<PostFormProps> = ({
             onChange={handleInputChange}
             className='form-select'
             disabled={uploading}
+            data-testid='category-select'
           >
             {categories.map(category => (
               <option key={category} value={category}>
@@ -210,6 +212,7 @@ const PostForm: React.FC<PostFormProps> = ({
             placeholder='카드뷰에 표시될 짧은 설명을 입력하세요'
             className='form-input'
             disabled={uploading}
+            data-testid='short-description-input'
           />
         </FormGroup>
 
@@ -238,6 +241,7 @@ const PostForm: React.FC<PostFormProps> = ({
                   id='image-upload'
                   className='file-input'
                   disabled={uploading}
+                  data-testid='image-upload-input'
                 />
                 <label
                   htmlFor='image-upload'
@@ -268,6 +272,7 @@ const PostForm: React.FC<PostFormProps> = ({
             placeholder='내용을 입력하세요'
             className='form-textarea'
             disabled={uploading}
+            data-testid='content-textarea'
           />
         </FormGroup>
 

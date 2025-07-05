@@ -1,7 +1,7 @@
-/* Curriculum 페이지 스타일 */
-.curriculum-page {
+/* Courses 페이지 스타일 */
+.courses-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2c5aa0 0%, #5a80bc 100%);
   padding: 40px 20px;
 }
 
@@ -31,15 +31,15 @@
   line-height: 1.6;
 }
 
-/* 업무 영역 그리드 */
-.business-areas {
+/* 교육대상 그리드 */
+.target-groups {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
   margin-bottom: 60px;
 }
 
-.business-card {
+.target-card {
   background: white;
   padding: 40px;
   border-radius: 15px;
@@ -50,47 +50,48 @@
   overflow: hidden;
 }
 
-.business-card::before {
+.target-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, #2c5aa0, #5a80bc);
 }
 
-.business-card:hover {
+.target-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.business-icon {
+.target-icon {
   font-size: 4rem;
   margin-bottom: 20px;
 }
 
-.business-card h3 {
+.target-card h3 {
   font-size: 1.5rem;
   color: #2c3e50;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.business-card p {
+.target-card p {
   color: #7f8c8d;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   line-height: 1.6;
   font-size: 1rem;
 }
 
-.business-card ul {
+.target-card ul {
   list-style: none;
   padding: 0;
   text-align: left;
+  margin-bottom: 25px;
 }
 
-.business-card li {
+.target-card li {
   padding: 8px 0;
   color: #34495e;
   position: relative;
@@ -98,16 +99,38 @@
   font-size: 0.95rem;
 }
 
-.business-card li:before {
+.target-card li:before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: #2c5aa0;
   font-weight: bold;
 }
 
-/* 연락처 섹션 */
-.contact-section {
+.target-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.target-info span {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.duration {
+  color: #2c5aa0 !important;
+}
+
+.schedule {
+  color: #28a745 !important;
+}
+
+/* 신청 안내 섹션 */
+.application-info {
   background: white;
   padding: 50px 40px;
   border-radius: 15px;
@@ -115,49 +138,54 @@
   text-align: center;
 }
 
-.contact-section h2 {
+.application-info h2 {
   font-size: 2rem;
-  color: #667eea;
+  color: #2c5aa0;
   margin-bottom: 40px;
   font-weight: 600;
 }
 
-.contact-grid {
+.info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
 }
 
-.contact-item {
-  padding: 25px 20px;
+.info-item {
+  padding: 30px 20px;
   border: 2px solid #f1f3f4;
   border-radius: 12px;
   transition: all 0.3s ease;
 }
 
-.contact-item:hover {
-  border-color: #667eea;
+.info-item:hover {
+  border-color: #2c5aa0;
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 10px 25px rgba(44, 90, 160, 0.1);
 }
 
-.contact-item h4 {
+.info-item h4 {
   font-size: 1.2rem;
-  color: #667eea;
+  color: #2c5aa0;
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.contact-item p {
+.info-item p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.info-item span {
   color: #2c3e50;
+  font-weight: 600;
   font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
 }
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-  .curriculum-page {
+  .courses-page {
     padding: 20px 10px;
   }
 
@@ -165,20 +193,20 @@
     font-size: 2.5rem;
   }
 
-  .business-areas {
+  .target-groups {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .business-card {
+  .target-card {
     padding: 30px 20px;
   }
 
-  .contact-section {
+  .application-info {
     padding: 30px 20px;
   }
 
-  .contact-grid {
+  .info-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -189,11 +217,11 @@
     font-size: 2rem;
   }
 
-  .business-card {
+  .target-card {
     padding: 25px 15px;
   }
 
-  .business-icon {
+  .target-icon {
     font-size: 3rem;
   }
 }

@@ -1,148 +1,76 @@
 import Cookies from 'js-cookie';
-import { mockAPI } from './mockAPI';
 
-// 개발 환경에서 mock API 사용 여부
-const USE_MOCK_API = process.env.NODE_ENV === 'development';
+// Admin 권한 관련 함수들
+export const isAdmin = (): boolean => {
+  // 실제 토큰 확인 (개발/프로덕션 공통)
+  const token = Cookies.get('admin_token');
+  return !!token;
+};
 
-export interface AuthResponse {
-  success: boolean;
-  token?: string;
-  message?: string;
-  user?: {
-    username: string;
-    role: string;
-  };
-}
+export const logout = () => {
+  Cookies.remove('admin_token');
+};
 
+// 관리자 로그인 API (Mock 구현)
 export const authAPI = {
-  // 로그인
-  login: async (username: string, password: string): Promise<AuthResponse> => {
-    try {
-      if (USE_MOCK_API) {
-        // 개발 환경에서 mock API 사용
-        return await mockAPI.admin.login(username, password);
-      }
-
-      // 프로덕션 환경에서 실제 API 호출
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        return {
-          success: true,
-          token: data.token,
-          user: data.user,
-        };
-      } else {
-        return {
-          success: false,
-          message: data.message || '로그인에 실패했습니다.',
-        };
-      }
-    } catch (error) {
-      console.error('Login API error:', error);
-      return {
-        success: false,
-        message: '서버 연결에 실패했습니다.',
-      };
-    }
-  },
-
-  // 토큰 검증 및 사용자 정보 조회
-  getMe: async (): Promise<AuthResponse> => {
-    try {
-      const token = Cookies.get('admin_token');
-      
-      if (!token) {
-        return {
-          success: false,
-          message: '토큰이 없습니다.',
-        };
-      }
-
-      if (USE_MOCK_API) {
-        // 개발 환경에서 mock API 사용
-        return await mockAPI.admin.getMe(token);
-      }
-
-      // 프로덕션 환경에서 실제 API 호출
-      const response = await fetch('/api/admin/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        return {
-          success: true,
-          user: data,
-        };
-      } else {
-        return {
-          success: false,
-          message: data.message || '인증에 실패했습니다.',
-        };
-      }
-    } catch (error) {
-      console.error('Auth verification error:', error);
-      return {
-        success: false,
-        message: '서버 연결에 실패했습니다.',
-      };
-    }
-  },
-
-  // 로그아웃
-  logout: () => {
-    Cookies.remove('admin_token');
-  },
-
-  // 토큰 존재 여부 확인
-  hasToken: (): boolean => {
+  // 토큰 확인
+  hasToken(): boolean {
     return !!Cookies.get('admin_token');
   },
 
-  // 인증된 요청을 위한 헤더
-  getAuthHeaders: (): Record<string, string> => {
-    const token = Cookies.get('admin_token');
-    const headers: Record<string, string> = {};
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-    return headers;
+  // 로그인 API
+  async login(username: string, password: string) {
+    // Mock API - 실제 구현 시 서버로 요청
+    return new Promise<{ success: boolean; token?: string; message?: string }>(
+      resolve => {
+        setTimeout(() => {
+          if (username === 'admin' && password === 'admin123') {
+            const mockToken = 'mock-jwt-token-' + Date.now();
+            resolve({
+              success: true,
+              token: mockToken,
+            });
+          } else {
+            resolve({
+              success: false,
+              message: '아이디 또는 비밀번호가 잘못되었습니다.',
+            });
+          }
+        }, 1000); // 네트워크 지연 시뮬레이션
+      }
+    );
   },
-};
 
-// JWT 토큰 디코딩 유틸리티 (간단한 페이로드 확인용)
-export const decodeJWT = (token: string) => {
-  try {
-    const payload = token.split('.')[1];
-    const decoded = JSON.parse(atob(payload));
-    return decoded;
-  } catch (error) {
-    console.error('JWT decode error:', error);
-    return null;
-  }
-};
+  // 사용자 정보 조회
+  async getMe() {
+    return new Promise<{ success: boolean; user?: any }>(resolve => {
+      setTimeout(() => {
+        const token = Cookies.get('admin_token');
+        if (token) {
+          resolve({
+            success: true,
+            user: {
+              username: 'admin',
+              role: 'administrator',
+            },
+          });
+        } else {
+          resolve({
+            success: false,
+          });
+        }
+      }, 500);
+    });
+  },
 
-// 토큰 만료 확인
-export const isTokenExpired = (token: string): boolean => {
-  try {
-    const decoded = decodeJWT(token);
-    if (!decoded || !decoded.exp) return true;
-    
-    const currentTime = Math.floor(Date.now() / 1000);
-    return decoded.exp < currentTime;
-  } catch (error) {
-    return true;
-  }
+  // 로그아웃
+  logout() {
+    Cookies.remove('admin_token');
+  },
+
+  // 인증 헤더 생성
+  getAuthHeaders() {
+    const token = Cookies.get('admin_token');
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  },
 };

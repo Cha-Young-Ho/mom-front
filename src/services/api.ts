@@ -270,18 +270,104 @@ export const galleryAPI = {
 
 // S3 업로드 관련 타입
 export interface PresignedUrlRequest {
-  fileName: string;
-  fileType: string;
-  fileSize: number;
+  content_type: string;
 }
 
 export interface PresignedUrlResponse {
-  uploadUrl: string;
-  fileUrl: string;
-  fileName: string;
+  upload_url: string;
+  file_url: string;
+  file_key: string;
+  expires_in: number;
+  expires_at: string;
 }
 
-// S3 업로드 API
+// News용 Presigned URL API
+export const newsUploadAPI = {
+  // News용 Presigned URL 요청
+  async getPresignedUrl(contentType: string): Promise<PresignedUrlResponse> {
+    const response = await apiFetch<any>(
+      `${API_CONFIG.endpoints.news}/upload-url`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content_type: contentType,
+        }),
+      }
+    );
+
+    return response.data;
+  },
+
+  // S3에 파일 업로드
+  async uploadToS3(uploadUrl: string, file: File): Promise<void> {
+    const response = await fetch(uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`S3 업로드 실패: ${response.status} ${response.statusText}`);
+    }
+  },
+
+  // 전체 업로드 프로세스
+  async uploadFile(file: File): Promise<string> {
+    const presignedData = await this.getPresignedUrl(file.type);
+    await this.uploadToS3(presignedData.upload_url, file);
+    return presignedData.file_url;
+  },
+};
+
+// Gallery용 Presigned URL API
+export const galleryUploadAPI = {
+  // Gallery용 Presigned URL 요청
+  async getPresignedUrl(contentType: string): Promise<PresignedUrlResponse> {
+    const response = await apiFetch<any>(
+      `${API_CONFIG.endpoints.gallery}/upload-url`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content_type: contentType,
+        }),
+      }
+    );
+
+    return response.data;
+  },
+
+  // S3에 파일 업로드
+  async uploadToS3(uploadUrl: string, file: File): Promise<void> {
+    const response = await fetch(uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`S3 업로드 실패: ${response.status} ${response.statusText}`);
+    }
+  },
+
+  // 전체 업로드 프로세스
+  async uploadFile(file: File): Promise<string> {
+    const presignedData = await this.getPresignedUrl(file.type);
+    await this.uploadToS3(presignedData.upload_url, file);
+    return presignedData.file_url;
+  },
+};
+
+// S3 업로드 API (기존 - 호환성 유지)
 export const uploadAPI = {
   // S3 Presigned URL 요청
   async getPresignedUrl(
@@ -318,16 +404,14 @@ export const uploadAPI = {
   async uploadFile(file: File): Promise<string> {
     // 1. Presigned URL 요청
     const presignedData = await this.getPresignedUrl({
-      fileName: file.name,
-      fileType: file.type,
-      fileSize: file.size,
+      content_type: file.type,
     });
 
     // 2. S3에 파일 업로드
-    await this.uploadToS3(presignedData.uploadUrl, file);
+    await this.uploadToS3(presignedData.upload_url, file);
 
     // 3. 업로드된 파일의 URL 반환
-    return presignedData.fileUrl;
+    return presignedData.file_url;
   },
 };
 

@@ -9,7 +9,7 @@ import {
 import { isAdmin } from '../../utils/auth';
 import {
   createImagePreview,
-  uploadImageWithCompression,
+  uploadImageToNewsS3,
   UploadResult,
 } from '../../utils/imageUpload';
 import './News.css';
@@ -210,11 +210,8 @@ const News: React.FC = () => {
         console.log('이미지 업로드 시작:', selectedFile.name);
         setUploadProgress('이미지 업로드 중...');
 
-        const uploadResult: UploadResult = await uploadImageWithCompression(
-          selectedFile,
-          true, // 압축 활성화
-          1200, // 최대 너비
-          0.8 // 품질
+        const uploadResult: UploadResult = await uploadImageToNewsS3(
+          selectedFile
         );
 
         if (!uploadResult.success) {

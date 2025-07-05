@@ -9,7 +9,7 @@ import {
 import { isAdmin } from '../../utils/auth';
 import {
   createImagePreview,
-  uploadImageWithCompression,
+  uploadImageToGalleryS3,
   UploadResult,
 } from '../../utils/imageUpload';
 import './Gallery.css';
@@ -189,11 +189,8 @@ const Gallery: React.FC = () => {
         console.log('이미지 업로드 시작:', selectedFile.name);
         setUploadProgress('이미지 업로드 중...');
 
-        const uploadResult: UploadResult = await uploadImageWithCompression(
-          selectedFile,
-          true, // 압축 활성화
-          1200, // 최대 너비
-          0.8 // 품질
+        const uploadResult: UploadResult = await uploadImageToGalleryS3(
+          selectedFile
         );
 
         if (!uploadResult.success) {

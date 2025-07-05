@@ -24,24 +24,7 @@
   color: #666;
 }
 
-/* header-links 스타일 (현재 사용 안함)
-.header-links {
-  display: flex;
-  gap: 20px;
-  font-size: 13px;
-}
-
-.header-links span {
-  cursor: pointer;
-  transition: opacity 0.2s;
-  color: #666;
-}
-
-.header-links span:hover {
-  opacity: 0.8;
-  color: #333;
-}
-*/
+/* header-links는 현재 사용하지 않음 */
 
 .header-main {
   background: white;

@@ -1,5 +1,5 @@
 // S3 Presigned URL 기반 이미지 업로드 유틸리티
-import { uploadAPI } from '../services/api';
+import { uploadAPI, newsUploadAPI, galleryUploadAPI } from '../services/api';
 
 // 지원하는 이미지 타입
 const SUPPORTED_TYPES = [
@@ -60,7 +60,75 @@ export interface UploadResult {
   error?: string;
 }
 
-// S3에 이미지 업로드 (Presigned URL 사용)
+// News용 이미지 업로드
+export const uploadImageToNewsS3 = async (file: File): Promise<UploadResult> => {
+  try {
+    // 1. 파일 유효성 검사
+    const validation = validateImageFile(file);
+    if (!validation.isValid) {
+      return {
+        success: false,
+        error: validation.error,
+      };
+    }
+
+    // 2. News S3 업로드 실행
+    const fileUrl = await newsUploadAPI.uploadFile(file);
+
+    return {
+      success: true,
+      url: fileUrl,
+    };
+  } catch (error) {
+    console.error('News S3 업로드 실패:', error);
+
+    let errorMessage = '이미지 업로드에 실패했습니다.';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+// Gallery용 이미지 업로드
+export const uploadImageToGalleryS3 = async (file: File): Promise<UploadResult> => {
+  try {
+    // 1. 파일 유효성 검사
+    const validation = validateImageFile(file);
+    if (!validation.isValid) {
+      return {
+        success: false,
+        error: validation.error,
+      };
+    }
+
+    // 2. Gallery S3 업로드 실행
+    const fileUrl = await galleryUploadAPI.uploadFile(file);
+
+    return {
+      success: true,
+      url: fileUrl,
+    };
+  } catch (error) {
+    console.error('Gallery S3 업로드 실패:', error);
+
+    let errorMessage = '이미지 업로드에 실패했습니다.';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+// S3에 이미지 업로드 (기존 - 호환성 유지)
 export const uploadImageToS3 = async (file: File): Promise<UploadResult> => {
   try {
     // 1. 파일 유효성 검사

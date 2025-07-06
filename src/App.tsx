@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import AdminLogin from './pages/AdminLogin';
 import Courses from './pages/Courses';
 import Curriculum from './pages/Curriculum';
@@ -38,6 +39,7 @@ function App() {
                     <Route path='/news' element={<News />} />
                   </Routes>
                 </main>
+                <Footer />
                 <HiddenLoginButton />
               </>
             }

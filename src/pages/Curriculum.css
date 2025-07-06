@@ -1,3 +1,4 @@
+/* Curriculum 페이지 스타일 */
 .curriculum-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -19,7 +20,7 @@
   font-size: 3rem;
   margin-bottom: 15px;
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .page-header p {
@@ -30,24 +31,38 @@
   line-height: 1.6;
 }
 
+/* 업무 영역 그리드 */
 .business-areas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
+  margin-bottom: 60px;
 }
 
 .business-card {
   background: white;
   padding: 40px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.business-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .business-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .business-icon {
@@ -66,6 +81,7 @@
   color: #7f8c8d;
   margin-bottom: 20px;
   line-height: 1.6;
+  font-size: 1rem;
 }
 
 .business-card ul {
@@ -79,30 +95,105 @@
   color: #34495e;
   position: relative;
   padding-left: 20px;
+  font-size: 0.95rem;
 }
 
 .business-card li:before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
-  color: #27ae60;
+  color: #667eea;
   font-weight: bold;
 }
 
+/* 연락처 섹션 */
+.contact-section {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.contact-item {
+  padding: 25px 20px;
+  border: 2px solid #f1f3f4;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  border-color: #667eea;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+}
+
+.contact-item h4 {
+  font-size: 1.2rem;
+  color: #667eea;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.contact-item p {
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 반응형 디자인 */
 @media (max-width: 768px) {
   .curriculum-page {
     padding: 20px 10px;
   }
-  
+
   .page-header h1 {
     font-size: 2.5rem;
   }
-  
+
   .business-areas {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
-  
+
   .business-card {
     padding: 30px 20px;
+  }
+
+  .contact-section {
+    padding: 30px 20px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .business-card {
+    padding: 25px 15px;
+  }
+
+  .business-icon {
+    font-size: 3rem;
   }
 }

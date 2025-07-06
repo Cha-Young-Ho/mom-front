@@ -1,0 +1,216 @@
+/* Shared PostCard Component Styles */
+.post-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: fit-content;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.post-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.post-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-card-image img {
+  transform: scale(1.05);
+}
+
+.post-card-content {
+  padding: 20px;
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.category-tag,
+.category-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-tag.news-센터소식,
+.category-badge.news-센터소식 {
+  background: #007bff;
+}
+.category-tag.news-프로그램소식,
+.category-badge.news-프로그램소식 {
+  background: #28a745;
+}
+.category-tag.news-행사소식,
+.category-badge.news-행사소식 {
+  background: #ffc107;
+  color: #212529;
+}
+.category-tag.news-생활정보,
+.category-badge.news-생활정보 {
+  background: #17a2b8;
+}
+.category-tag.news-기타,
+.category-badge.news-기타 {
+  background: #6c757d;
+}
+
+.category-tag.gallery-공지사항,
+.category-badge.gallery-공지사항 {
+  background: #dc3545;
+}
+.category-tag.gallery-질문,
+.category-badge.gallery-질문 {
+  background: #fd7e14;
+}
+.category-tag.gallery-건의,
+.category-badge.gallery-건의 {
+  background: #20c997;
+}
+.category-tag.gallery-참고자료,
+.category-badge.gallery-참고자료 {
+  background: #6f42c1;
+}
+.category-tag.gallery-기타,
+.category-badge.gallery-기타 {
+  background: #6c757d;
+}
+.category-tag.gallery-세미나,
+.category-badge.gallery-세미나 {
+  background: #e83e8c;
+}
+.category-tag.gallery-일정,
+.category-badge.gallery-일정 {
+  background: #198754;
+}
+
+/* Basic color classes */
+.category-tag.red,
+.category-badge.red {
+  background: #dc3545;
+}
+.category-tag.blue,
+.category-badge.blue {
+  background: #007bff;
+}
+.category-tag.green,
+.category-badge.green {
+  background: #28a745;
+}
+.category-tag.orange,
+.category-badge.orange {
+  background: #fd7e14;
+}
+.category-tag.purple,
+.category-badge.purple {
+  background: #6f42c1;
+}
+.category-tag.gray,
+.category-badge.gray {
+  background: #6c757d;
+}
+
+/* Delete button styles */
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.post-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-meta {
+  font-size: 0.8rem;
+  color: #6c757d;
+  padding-top: 12px;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .post-card-image {
+    height: 160px;
+  }
+
+  .post-card-content {
+    padding: 16px;
+  }
+
+  .post-card-title {
+    font-size: 1rem;
+  }
+
+  .post-card-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-card-image {
+    height: 140px;
+  }
+
+  .post-card-content {
+    padding: 12px;
+  }
+
+  .post-card-title {
+    font-size: 0.9rem;
+  }
+}

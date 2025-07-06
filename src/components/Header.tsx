@@ -1,24 +1,28 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { authAPI, isAdmin } from '../utils/auth';
 import './Header.css';
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleKakaoChat = () => {
-    // 여기에 카카오톡 상담 링크를 넣어주세요
-    // window.open('KAKAO_CHAT_LINK', '_blank');
-    console.log('카카오톡 상담 링크를 설정해주세요');
+    window.open('https://open.kakao.com/o/sbo9fqFh', '_blank');
+  };
+
+  const handleAdminLogout = () => {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
+      authAPI.logout();
+      navigate('/');
+      window.location.reload(); // 상태 갱신을 위해 새로고침
+    }
   };
 
   return (
     <header className='header'>
       <div className='header-top'>
         <div className='header-info'>{/* 기존 안내 메시지 삭제됨 */}</div>
-        <div className='header-links'>
-          <span>언어선택</span>
-          <span>사이트맵 바로가기</span>
-        </div>
       </div>
 
       <div className='header-main'>
@@ -69,13 +73,28 @@ const Header: React.FC = () => {
           </nav>
 
           <div className='contact-buttons'>
-            <button className='contact-btn kakao-btn' onClick={handleKakaoChat}>
-              <span className='kakao-icon'>💬</span>
-              <div className='btn-text'>
-                <div className='btn-label'>카카오톡 상담</div>
-                <div className='btn-subtitle'>24시간 언제든지</div>
+            {isAdmin() ? (
+              <div className='admin-controls'>
+                <span className='admin-status'>👤 관리자 모드</span>
+                <button
+                  className='admin-logout-btn'
+                  onClick={handleAdminLogout}
+                >
+                  로그아웃
+                </button>
               </div>
-            </button>
+            ) : (
+              <button
+                className='contact-btn kakao-btn'
+                onClick={handleKakaoChat}
+              >
+                <span className='kakao-icon'>💬</span>
+                <div className='btn-text'>
+                  <div className='btn-label'>카카오톡 상담</div>
+                  <div className='btn-subtitle'>24시간 언제든지</div>
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </div>

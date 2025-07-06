@@ -1,0 +1,227 @@
+/* Courses 페이지 스타일 */
+.courses-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c5aa0 0%, #5a80bc 100%);
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+  color: white;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* 교육대상 그리드 */
+.target-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.target-card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.target-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2c5aa0, #5a80bc);
+}
+
+.target-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.target-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.target-card h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.target-card p {
+  color: #7f8c8d;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.target-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.target-card li {
+  padding: 8px 0;
+  color: #34495e;
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.95rem;
+}
+
+.target-card li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #2c5aa0;
+  font-weight: bold;
+}
+
+.target-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.target-info span {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.duration {
+  color: #2c5aa0 !important;
+}
+
+.schedule {
+  color: #28a745 !important;
+}
+
+/* 신청 안내 섹션 */
+.application-info {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.application-info h2 {
+  font-size: 2rem;
+  color: #2c5aa0;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.info-item {
+  padding: 30px 20px;
+  border: 2px solid #f1f3f4;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  border-color: #2c5aa0;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(44, 90, 160, 0.1);
+}
+
+.info-item h4 {
+  font-size: 1.2rem;
+  color: #2c5aa0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.info-item p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.info-item span {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .courses-page {
+    padding: 20px 10px;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .target-groups {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .target-card {
+    padding: 30px 20px;
+  }
+
+  .application-info {
+    padding: 30px 20px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .target-card {
+    padding: 25px 15px;
+  }
+
+  .target-icon {
+    font-size: 3rem;
+  }
+}

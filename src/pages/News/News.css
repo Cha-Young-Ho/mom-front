@@ -1,0 +1,70 @@
+/* News Page Specific Styles */
+@import '../../components/shared/styles/common.css';
+
+.news {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: calc(100vh - 200px);
+}
+
+.news-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #2c5aa0;
+}
+
+.news-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.news-header p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* News specific customizations can go here */
+.news .admin-controls {
+  /* News page specific admin controls styling if needed */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .news {
+    padding: 20px 15px;
+  }
+
+  .news-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+  }
+
+  .news-header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .news-header p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .news {
+    padding: 15px 10px;
+  }
+
+  .news-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .news-header p {
+    font-size: 0.95rem;
+  }
+}

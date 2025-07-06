@@ -21,6 +21,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 .env.staging
 
 # misc
@@ -244,3 +245,93 @@ firebase-debug.log
 cloudfront-*.json.tmp
 deployment-status.json
 *.distribution-config
+
+# 프로젝트 특정 파일들
+# 문서 파일들 (선택적으로 제외 - 필요에 따라 주석 해제)
+# *.md
+# ARCHITECTURE.md
+# CICD_ENVIRONMENT_GUIDE.md
+# DEPLOYMENT_GUIDE.md
+# FINAL_PROJECT_STATUS.md
+# GITHUB_SECRETS_GUIDE.md
+# PROJECT_SETUP_GUIDE.md
+# PROJECT_SUMMARY.md
+# REFACTORING_COMPLETE.md
+# REFACTORING_REPORT.md
+# SERVER_SPEC.md
+# SETUP_COMPLETE.md
+# manual-setup-guide.md
+
+# 배포 스크립트들 (운영 환경에서 필요시 주석 해제)
+# check-deployment.sh
+# check-env.sh
+# deploy-spa.sh
+
+# Jest 설정 파일 (프로젝트별 설정이므로 일반적으로 포함)
+# jest.config.json
+
+# 개발/테스트 환경에서 생성되는 임시 파일들
+*.log.*
+*.test.log
+test-results/
+test-output/
+coverage-report/
+
+# React 개발 서버 관련
+.cache/
+.vscode/launch.json
+.vscode/tasks.json
+
+# 에디터 임시 파일들
+.vscode/settings.json
+*.sublime-*
+.atom/
+
+# 운영체제별 추가 파일들
+# macOS 추가
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows 추가
+*.tmp
+*.temp
+.vs/
+
+# 패키지 매니저 캐시
+.npm/
+.yarn/
+.pnp/
+
+# 빌드 및 배포 아티팩트
+build-*.tar.gz
+deploy-*.zip
+release-notes.txt
+
+# 로컬 개발 설정
+.env.development
+.env.staging
+local.settings.json
+
+# 프로파일링 파일들
+*.cpuprofile
+*.heapprofile
+
+# TypeScript 컴파일러 출력
+*.js.map
+*.d.ts.map
+
+# 테스트 커버리지 세부 파일들
+coverage/lcov-report/
+coverage/clover.xml
+coverage/coverage-final.json
+
+# 소스맵 파일들 (프로덕션에서 제외하고 싶은 경우)
+# *.map
+
+# 임시 백업 파일들
+*_backup_*
+*_bak_*
+*.orig

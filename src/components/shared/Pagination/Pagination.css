@@ -1,0 +1,86 @@
+/* Shared Pagination Component Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 40px auto 0 auto;
+  max-width: 1200px;
+}
+
+.pagination-btn {
+  padding: 10px 15px;
+  border: 1px solid #dee2e6;
+  background: white;
+  color: #495057;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  min-width: 40px;
+  font-family: inherit;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.pagination-btn.active {
+  background: #2c5aa0;
+  border-color: #2c5aa0;
+  color: white;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: white;
+}
+
+.pagination-btn.nav-btn {
+  font-weight: 500;
+}
+
+.pagination-ellipsis {
+  padding: 10px 15px;
+  color: #495057;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pagination {
+    margin-top: 30px;
+    padding: 0 10px;
+  }
+
+  .pagination-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 4px;
+  }
+
+  .pagination-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    min-width: 36px;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .pagination-btn {
+    transition: none;
+  }
+}

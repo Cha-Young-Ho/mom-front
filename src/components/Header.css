@@ -1,6 +1,6 @@
 .header {
   background: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -24,22 +24,7 @@
   color: #666;
 }
 
-.header-links {
-  display: flex;
-  gap: 20px;
-  font-size: 13px;
-}
-
-.header-links span {
-  cursor: pointer;
-  transition: opacity 0.2s;
-  color: #666;
-}
-
-.header-links span:hover {
-  opacity: 0.8;
-  color: #333;
-}
+/* header-links는 현재 사용하지 않음 */
 
 .header-main {
   background: white;
@@ -202,17 +187,52 @@
   color: #666;
 }
 
+/* 관리자 컨트롤 */
+.admin-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-status {
+  background: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.admin-logout-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-logout-btn:hover {
+  background: #c82333;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
   .navigation {
     gap: 15px;
   }
-  
+
   .navigation a {
     font-size: 15px;
     padding: 8px 12px;
   }
-  
+
   .logo h1 {
     font-size: 20px;
   }
@@ -225,41 +245,41 @@
     text-align: center;
     padding: 5px 15px;
   }
-  
+
   .header-info {
     font-size: 12px;
   }
-  
+
   .header-links {
     gap: 15px;
     font-size: 12px;
   }
-  
+
   .header-container {
     flex-direction: column;
     gap: 15px;
     padding: 0 15px;
   }
-  
+
   .logo h1 {
     font-size: 18px;
   }
-  
+
   .navigation {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .navigation a {
     font-size: 14px;
     padding: 8px 10px;
   }
-  
+
   .contact-buttons {
     justify-content: center;
   }
-  
+
   .contact-btn {
     padding: 8px 12px;
     font-size: 13px;
@@ -270,52 +290,52 @@
   .header-top {
     padding: 5px 10px;
   }
-  
+
   .header-info {
     font-size: 11px;
     text-align: center;
   }
-  
+
   .header-links {
     gap: 10px;
     font-size: 11px;
   }
-  
+
   .header-container {
     padding: 0 10px;
   }
-  
+
   .logo-container {
     gap: 10px;
   }
-  
+
   .logo-icon {
     width: 40px;
     height: 40px;
   }
-  
+
   .logo h1 {
     font-size: 16px;
   }
-  
+
   .navigation {
     gap: 5px;
   }
-  
+
   .navigation a {
     font-size: 13px;
     padding: 6px 8px;
   }
-  
+
   .contact-btn {
     padding: 6px 10px;
     font-size: 12px;
   }
-  
+
   .btn-label {
     font-size: 12px;
   }
-  
+
   .btn-subtitle {
     font-size: 9px;
   }

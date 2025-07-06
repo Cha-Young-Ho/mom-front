@@ -1,0 +1,252 @@
+/* Shared Button Component Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.25);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button Sizes */
+.btn-small {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+.btn-medium {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  min-height: 40px;
+}
+
+.btn-large {
+  padding: 12px 24px;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+/* Button Variants */
+.btn-primary {
+  background: #2c5aa0;
+  border-color: #2c5aa0;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1e4080;
+  border-color: #1e4080;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #545b62;
+  border-color: #545b62;
+}
+
+.btn-success {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: #218838;
+  border-color: #218838;
+}
+
+.btn-danger {
+  background: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c82333;
+  border-color: #c82333;
+}
+
+.btn-warning {
+  background: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background: #e0a800;
+  border-color: #e0a800;
+}
+
+.btn-info {
+  background: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+  background: #138496;
+  border-color: #138496;
+}
+
+.btn-light {
+  background: #f8f9fa;
+  border-color: #f8f9fa;
+  color: #212529;
+}
+
+.btn-light:hover:not(:disabled) {
+  background: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+.btn-dark {
+  background: #343a40;
+  border-color: #343a40;
+  color: white;
+}
+
+.btn-dark:hover:not(:disabled) {
+  background: #23272b;
+  border-color: #1d2124;
+}
+
+/* Full Width */
+.btn-full-width {
+  width: 100%;
+}
+
+/* Loading State */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.btn-spinner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: btn-spin 1s linear infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes btn-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Special Button Types */
+.btn-outline {
+  background: transparent;
+  color: currentColor;
+}
+
+.btn-outline.btn-primary {
+  color: #2c5aa0;
+  border-color: #2c5aa0;
+}
+
+.btn-outline.btn-primary:hover:not(:disabled) {
+  background: #2c5aa0;
+  color: white;
+}
+
+.btn-outline.btn-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-outline.btn-secondary:hover:not(:disabled) {
+  background: #6c757d;
+  color: white;
+}
+
+/* Icon Buttons */
+.btn-icon {
+  padding: 8px;
+  border-radius: 50%;
+  min-width: auto;
+  aspect-ratio: 1;
+}
+
+.btn-icon.btn-small {
+  padding: 6px;
+  min-height: 28px;
+}
+
+.btn-icon.btn-large {
+  padding: 12px;
+  min-height: 44px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .btn-large {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  .btn-medium {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+
+  .btn-small {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    min-height: 30px;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .btn-spinner {
+    animation: none;
+  }
+}
+
+/* Focus styles for better accessibility */
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

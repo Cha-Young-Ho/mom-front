@@ -36,9 +36,10 @@ export const authAPI = {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // 서버 응답 구조에 맞게 token을 data.data.token에서 추출
         return {
           success: true,
-          token: data.token,
+          token: data.data?.token,
         };
       } else {
         return {

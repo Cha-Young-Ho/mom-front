@@ -40,10 +40,13 @@
 /* Main Hero Section */
 .main-hero {
   background: white;
-  min-height: 480px;
+  min-height: 340px;
   position: relative;
   border-bottom: 1px solid #e9ecef;
   overflow: hidden;
+  height: 340px;
+  display: flex;
+  align-items: stretch;
 }
 
 /* Hero Slider */
@@ -73,8 +76,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
+  height: 100%;
 }
 
 .hero-left h1 {
@@ -113,18 +117,28 @@
 .hero-right {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .hero-illustration {
   position: relative;
-  width: 100%;
-  max-width: 400px;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
 }
 
 .image-container {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.image-container.fill-height {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .slide-image {
@@ -134,34 +148,12 @@
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
 }
 
-.people-icons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.people-icons span {
-  font-size: 2rem;
-  animation: float 3s ease-in-out infinite;
-}
-
-.people-icons span:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.people-icons span:nth-child(3) {
-  animation-delay: 1s;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.slide-image.fill-height-img {
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Slider Navigation */
@@ -201,23 +193,29 @@
 
 /* Slide Indicators */
 .slide-indicators {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 10px;
-  z-index: 10;
+  justify-content: center;
+  gap: 12px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+  z-index: 2;
+}
+
+.slide-indicators.moved-down {
+  bottom: 16px;
 }
 
 .indicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  background: #e0e7ef;
   border: none;
-  background: rgba(255, 255, 255, 0.5);
+  outline: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s;
 }
 
 .indicator.active {
@@ -307,10 +305,6 @@
     max-width: 250px;
   }
 
-  .people-icons span {
-    font-size: 1.5rem;
-  }
-
   .slider-nav {
     width: 40px;
     height: 40px;
@@ -386,15 +380,6 @@
     max-width: 200px;
   }
 
-  .people-icons {
-    gap: 10px;
-    margin-top: 15px;
-  }
-
-  .people-icons span {
-    font-size: 1.2rem;
-  }
-
   .slider-nav {
     width: 35px;
     height: 35px;
@@ -449,10 +434,6 @@
 @media (prefers-reduced-motion: reduce) {
   .slides-container {
     transition: none;
-  }
-
-  .people-icons span {
-    animation: none;
   }
 
   .portal-btn,

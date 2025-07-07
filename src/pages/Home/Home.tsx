@@ -82,7 +82,6 @@ const Home: React.FC = () => {
       subtitle: '미래 인재 양성을 위한 전문 교육기관입니다.',
       buttonText: '센터소개 자세히 보기',
       image: '/images/health-service.svg',
-      icons: ['👨‍🎓', '👩‍🏫', '📚'],
     },
     {
       id: 2,
@@ -90,7 +89,6 @@ const Home: React.FC = () => {
       subtitle: '체계적이고 실무 중심의 교육 프로그램을 제공합니다.',
       buttonText: '교육과정 확인하기',
       image: '/images/family-health.svg',
-      icons: ['💻', '📖', '🎯'],
     },
     {
       id: 3,
@@ -98,7 +96,6 @@ const Home: React.FC = () => {
       subtitle: '국제적 감각을 갖춘 전문 인력을 양성합니다.',
       buttonText: '프로그램 보기',
       image: '/images/online-consultation.svg',
-      icons: ['🌍', '🤝', '📈'],
     },
     {
       id: 4,
@@ -106,7 +103,6 @@ const Home: React.FC = () => {
       subtitle: '기업과 연계한 실무 교육으로 취업을 지원합니다.',
       buttonText: '협력업체 보기',
       image: '/images/health-checkup.svg',
-      icons: ['🏢', '🤝', '💼'],
     },
   ];
 
@@ -134,7 +130,7 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       {/* e-보건소 Link를 센터 포털로 변경 */}
-      <div className='ehealth-link'>
+      {/* <div className='ehealth-link'>
         <a
           href='https://www.e-bogunso.go.kr'
           target='_blank'
@@ -143,7 +139,7 @@ const Home: React.FC = () => {
         >
           🏢 센터 포털
         </a>
-      </div>
+      </div> */}
 
       {/* Main Hero Section with Slider */}
       <section className='main-hero'>
@@ -162,17 +158,12 @@ const Home: React.FC = () => {
                   </div>
                   <div className='hero-right'>
                     <div className='hero-illustration'>
-                      <div className='image-container'>
+                      <div className='image-container fill-height'>
                         <img
                           src={slide.image}
                           alt={slide.title}
-                          className='slide-image'
+                          className='slide-image fill-height-img'
                         />
-                      </div>
-                      <div className='people-icons'>
-                        {slide.icons.map((icon, iconIndex) => (
-                          <span key={iconIndex}>{icon}</span>
-                        ))}
                       </div>
                     </div>
                   </div>
@@ -190,7 +181,7 @@ const Home: React.FC = () => {
           </button>
 
           {/* Slide Indicators */}
-          <div className='slide-indicators'>
+          <div className='slide-indicators moved-down'>
             {slides.map((_, index) => (
               <button
                 key={index}

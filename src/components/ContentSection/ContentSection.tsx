@@ -74,7 +74,22 @@ const ContentSection: React.FC<ContentSectionProps> = ({
                   <h3>{post.title}</h3>
                   <div className='item-meta'>
                     <span className='item-date'>
-                      {new Date(post.created_at).toLocaleDateString('ko-KR')}
+                      {(() => {
+                        // created_at이 ISO8601(+00:00Z 등) 또는 date(YYYY-MM-DD) 모두 지원
+                        const raw = post.created_at || (post as any).date;
+                        if (!raw) return '';
+                        // 일부 서버는 microseconds가 붙어있으니, .(dot) 이하 제거
+                        const clean = raw
+                          .split('.')[0]
+                          .replace('Z', '')
+                          .replace('+00:00', '')
+                          .replace('T', ' ');
+                        // Safari 등 호환 위해 '-'를 '/'로
+                        const normalized = clean.replace(/-/g, '/');
+                        const date = new Date(normalized);
+                        if (isNaN(date.getTime())) return raw;
+                        return date.toLocaleDateString('ko-KR');
+                      })()}
                     </span>
                   </div>
                 </div>

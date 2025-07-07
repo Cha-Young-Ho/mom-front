@@ -75,19 +75,23 @@ const ContentSection: React.FC<ContentSectionProps> = ({
                   <div className='item-meta'>
                     <span className='item-date'>
                       {(() => {
-                        // created_at이 ISO8601(+00:00Z 등) 또는 date(YYYY-MM-DD) 모두 지원
-                        const raw = post.created_at || (post as any).date;
+                        // created_at, date 등 다양한 포맷 지원
+                        let raw = post.created_at || (post as any).date;
                         if (!raw) return '';
-                        // 일부 서버는 microseconds가 붙어있으니, .(dot) 이하 제거
-                        const clean = raw
-                          .split('.')[0]
-                          .replace('Z', '')
-                          .replace('+00:00', '')
-                          .replace('T', ' ');
-                        // Safari 등 호환 위해 '-'를 '/'로
-                        const normalized = clean.replace(/-/g, '/');
-                        const date = new Date(normalized);
-                        if (isNaN(date.getTime())) return raw;
+                        // microseconds, timezone, Z 등 모두 제거
+                        raw = raw.replace(/\.[0-9]+/, '').replace(/Z$/, '').replace(/\+\d+:?\d*$/, '');
+                        // T를 공백으로, -를 /로
+                        let normalized = raw.replace('T', ' ').replace(/-/g, '/');
+                        let date = new Date(normalized);
+                        // 파싱 실패 시 YYYY-MM-DD만 추출해서 재시도
+                        if (isNaN(date.getTime())) {
+                          const match = (post.created_at || (post as any).date || '').match(/\d{4}-\d{2}-\d{2}/);
+                          if (match) {
+                            normalized = match[0].replace(/-/g, '/');
+                            date = new Date(normalized);
+                          }
+                        }
+                        if (isNaN(date.getTime())) return (post.created_at || (post as any).date) || '';
                         return date.toLocaleDateString('ko-KR');
                       })()}
                     </span>

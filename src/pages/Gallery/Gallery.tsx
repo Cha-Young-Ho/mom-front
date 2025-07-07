@@ -1,8 +1,8 @@
 import React from 'react';
+import { SeoHelmet } from '../../components/SeoHelmet';
 import { PostPage } from '../../components/shared';
 import { API_CONFIG } from '../../config/api';
 import { galleryAPI, Post } from '../../services/api';
-import { SeoHelmet } from '../../components/SeoHelmet';
 
 const Gallery: React.FC = () => {
   // 실패 시 사용할 기본 데이터
@@ -40,7 +40,10 @@ const Gallery: React.FC = () => {
 
   return (
     <>
-      <SeoHelmet title="주요정보 - 한국미래인적자원개발원" description="센터의 주요 정보와 자료를 확인하세요." />
+      <SeoHelmet
+        title='주요정보 - 한국미래인적자원개발원'
+        description='센터의 주요 정보와 자료를 확인하세요.'
+      />
       <PostPage
         title='주요정보'
         description='센터의 자료와 정보를 확인하세요.'

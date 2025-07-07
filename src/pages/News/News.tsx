@@ -1,8 +1,8 @@
 import React from 'react';
+import { SeoHelmet } from '../../components/SeoHelmet';
 import { PostPage } from '../../components/shared';
 import { API_CONFIG } from '../../config/api';
 import { newsAPI, Post } from '../../services/api';
-import { SeoHelmet } from '../../components/SeoHelmet';
 
 const News: React.FC = () => {
   // 실패 시 사용할 기본 데이터
@@ -59,7 +59,10 @@ const News: React.FC = () => {
 
   return (
     <>
-      <SeoHelmet title="센터소식 - 한국미래인적자원개발원" description="센터의 최신 소식과 공지사항을 확인하세요." />
+      <SeoHelmet
+        title='센터소식 - 한국미래인적자원개발원'
+        description='센터의 최신 소식과 공지사항을 확인하세요.'
+      />
       <PostPage
         title='센터소식'
         description='센터의 다양한 소식과 프로그램 정보를 확인하세요.'

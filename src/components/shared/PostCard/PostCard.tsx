@@ -71,14 +71,33 @@ const PostCard: React.FC<PostCardProps> = ({
         )}
         <div className='post-card-meta'>
           <span>
-            {new Date(post.created_at)
-              .toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-              })
-              .replace(/\. /g, '.')
-              .replace(/\.$/, '')}
+            {(() => {
+              let raw = post.created_at || (post as any).date;
+              if (!raw) return '';
+              let date = new Date(raw);
+              if (isNaN(date.getTime())) {
+                let fixed = raw
+                  .replace(/([.][0-9]+)?([+-]\d{2}:?\d{2}|Z)?$/, '')
+                  .replace('T', ' ')
+                  .replace(/-/g, '/');
+                date = new Date(fixed);
+                if (isNaN(date.getTime())) {
+                  const match = raw.match(/\d{4}-\d{2}-\d{2}/);
+                  if (match) {
+                    date = new Date(match[0].replace(/-/g, '/'));
+                  }
+                }
+              }
+              if (isNaN(date.getTime())) return raw;
+              return date
+                .toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })
+                .replace(/\. /g, '.')
+                .replace(/\.$/, '');
+            })()}
           </span>
         </div>
       </div>

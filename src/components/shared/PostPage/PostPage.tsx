@@ -89,7 +89,8 @@ const PostPage: React.FC<PostPageProps> = ({
   const handleDeletePost = async (id: string) => {
     try {
       await deletePost(id);
-      await handleLoadPosts();
+      setPosts(prev => prev.filter(post => post.id !== id)); // UI에서 즉시 제거
+      await handleLoadPosts(); // 서버 최신화도 시도
       alert('게시글이 삭제되었습니다.');
     } catch (error) {
       console.error('게시글 삭제 실패:', error);

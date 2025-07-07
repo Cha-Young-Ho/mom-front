@@ -75,23 +75,29 @@ const ContentSection: React.FC<ContentSectionProps> = ({
                   <div className='item-meta'>
                     <span className='item-date'>
                       {(() => {
-                        // created_at, date 등 다양한 포맷 지원
                         let raw = post.created_at || (post as any).date;
                         if (!raw) return '';
-                        // microseconds, timezone, Z 등 모두 제거
-                        raw = raw.replace(/\.[0-9]+/, '').replace(/Z$/, '').replace(/\+\d+:?\d*$/, '');
+                        // microseconds(소수점 이하)와 그 뒤의 모든 문자, Z, +00:00 등 모두 제거
+                        raw = raw.replace(/\.[0-9]+([A-Za-z:+-].*)?$/, '');
                         // T를 공백으로, -를 /로
-                        let normalized = raw.replace('T', ' ').replace(/-/g, '/');
+                        let normalized = raw
+                          .replace('T', ' ')
+                          .replace(/-/g, '/');
                         let date = new Date(normalized);
                         // 파싱 실패 시 YYYY-MM-DD만 추출해서 재시도
                         if (isNaN(date.getTime())) {
-                          const match = (post.created_at || (post as any).date || '').match(/\d{4}-\d{2}-\d{2}/);
+                          const match = (
+                            post.created_at ||
+                            (post as any).date ||
+                            ''
+                          ).match(/\d{4}-\d{2}-\d{2}/);
                           if (match) {
                             normalized = match[0].replace(/-/g, '/');
                             date = new Date(normalized);
                           }
                         }
-                        if (isNaN(date.getTime())) return (post.created_at || (post as any).date) || '';
+                        if (isNaN(date.getTime()))
+                          return post.created_at || (post as any).date || '';
                         return date.toLocaleDateString('ko-KR');
                       })()}
                     </span>

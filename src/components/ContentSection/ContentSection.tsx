@@ -75,10 +75,12 @@ const ContentSection: React.FC<ContentSectionProps> = ({
                   <div className='item-meta'>
                     <span className='item-date'>
                       {(() => {
+                        // created_at, date 등 다양한 포맷 지원
                         let raw = post.created_at || (post as any).date;
                         if (!raw) return '';
-                        // microseconds(소수점 이하)와 그 뒤의 모든 문자, Z, +00:00 등 모두 제거
+                        // microseconds(소수점 이하)와 타임존(+00:00, Z 등) 모두 제거
                         raw = raw.replace(/\.[0-9]+([A-Za-z:+-].*)?$/, '');
+                        raw = raw.replace(/([+-]\d{2}:?\d{2}|Z)$/i, '');
                         // T를 공백으로, -를 /로
                         let normalized = raw
                           .replace('T', ' ')

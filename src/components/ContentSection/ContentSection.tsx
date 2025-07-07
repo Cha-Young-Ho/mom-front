@@ -78,28 +78,24 @@ const ContentSection: React.FC<ContentSectionProps> = ({
                         // created_at, date 등 다양한 포맷 지원
                         let raw = post.created_at || (post as any).date;
                         if (!raw) return '';
-                        // microseconds(소수점 이하)와 타임존(+00:00, Z 등) 모두 제거
-                        raw = raw.replace(/\.[0-9]+([A-Za-z:+-].*)?$/, '');
-                        raw = raw.replace(/([+-]\d{2}:?\d{2}|Z)$/i, '');
-                        // T를 공백으로, -를 /로
-                        let normalized = raw
-                          .replace('T', ' ')
-                          .replace(/-/g, '/');
-                        let date = new Date(normalized);
-                        // 파싱 실패 시 YYYY-MM-DD만 추출해서 재시도
+                        // 1. ISO 포맷은 그대로 Date로 시도
+                        let date = new Date(raw);
+                        // 2. 파싱 실패 시 마이크로초, 타임존, T, - 등 보정
                         if (isNaN(date.getTime())) {
-                          const match = (
-                            post.created_at ||
-                            (post as any).date ||
-                            ''
-                          ).match(/\d{4}-\d{2}-\d{2}/);
-                          if (match) {
-                            normalized = match[0].replace(/-/g, '/');
-                            date = new Date(normalized);
+                          let fixed = raw
+                            .replace(/([.][0-9]+)?([+-]\d{2}:?\d{2}|Z)?$/, '') // 마이크로초+타임존 제거
+                            .replace('T', ' ')
+                            .replace(/-/g, '/');
+                          date = new Date(fixed);
+                          // 그래도 실패하면 YYYY-MM-DD만 추출해서 재시도
+                          if (isNaN(date.getTime())) {
+                            const match = raw.match(/\d{4}-\d{2}-\d{2}/);
+                            if (match) {
+                              date = new Date(match[0].replace(/-/g, '/'));
+                            }
                           }
                         }
-                        if (isNaN(date.getTime()))
-                          return post.created_at || (post as any).date || '';
+                        if (isNaN(date.getTime())) return raw;
                         return date.toLocaleDateString('ko-KR');
                       })()}
                     </span>

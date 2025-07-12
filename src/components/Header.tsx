@@ -50,7 +50,7 @@ const Header: React.FC = () => {
               to='/curriculum'
               className={location.pathname === '/curriculum' ? 'active' : ''}
             >
-              취급업무
+              교육과정
             </Link>
             <Link
               to='/courses'

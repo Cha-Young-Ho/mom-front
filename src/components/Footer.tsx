@@ -16,6 +16,7 @@ const Footer: React.FC = () => {
             <div className='contact-info'>
               <p>📞 전화: 010-8828-4772</p>
               <p>📍 주소: 창원시 성산구 상남로 184번길 27</p>
+              <p>대표: 이영진</p>
               <p>사업자등록번호: 603-26-97395</p>
             </div>
           </div>
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
                 <a href='/'>센터소개</a>
               </li>
               <li>
-                <a href='/curriculum'>취급업무</a>
+                <a href='/curriculum'>교육과정</a>
               </li>
               <li>
                 <a href='/courses'>교육대상</a>

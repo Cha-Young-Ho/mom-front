@@ -107,32 +107,6 @@ const Courses: React.FC = () => {
             </div>
           </div>
         </div>
-
-        <div className='application-info'>
-          <h2>신청 안내</h2>
-          <div className='info-grid'>
-            <div className='info-item'>
-              <h4>📞 상담 문의</h4>
-              <p>교육 상담 및 과정 문의</p>
-              <span>02-1234-5678</span>
-            </div>
-            <div className='info-item'>
-              <h4>📧 온라인 신청</h4>
-              <p>홈페이지를 통한 온라인 신청</p>
-              <span>www.example.com</span>
-            </div>
-            <div className='info-item'>
-              <h4>🏢 방문 상담</h4>
-              <p>센터 방문 상담 및 안내</p>
-              <span>평일 09:00-18:00</span>
-            </div>
-            <div className='info-item'>
-              <h4>💳 교육비 지원</h4>
-              <p>국가지원금 및 할인 혜택</p>
-              <span>최대 100% 지원</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

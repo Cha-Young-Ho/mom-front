@@ -52,6 +52,159 @@ const coachingDetail = `
 </div>
 `;
 
+const certificateSummaries = [
+  {
+    name: '노인심리상담사',
+    summary: (
+      <div style={{ marginBottom: 32 }}>
+        <h4>노인심리상담사</h4>
+        <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 8 }}>
+          <b style={{ color: '#3ec6b6' }}>노인의 마음을 읽는 전문가!</b> <br />
+          노인의 심리적·정서적 문제를 이해하고 상담을 통해 <b>정서적 안정</b>을
+          선물합니다.
+          <br />
+          <span style={{ color: '#3ec6b6', fontWeight: 600 }}>
+            노인복지관, 요양시설, 사회복지기관
+          </span>{' '}
+          등에서 활약하며, 따뜻한 공감과 전문 상담으로 노인분들의 삶에 활력을
+          더합니다.
+        </div>
+        <ul>
+          <li>
+            <b>다양한 상담기법</b> 습득: 노인 심리상담, 가족상담, 집단상담 등
+          </li>
+          <li>
+            <b>활동처</b>: 노인복지관, 요양원, 사회복지관 등
+          </li>
+          <li>
+            <b>진출 직업</b>: 노인상담사, 사회복지사, 복지시설 프로그램 운영자
+            등
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    name: '웃음코칭지도사',
+    summary: (
+      <div style={{ marginBottom: 32 }}>
+        <h4>웃음코칭지도사</h4>
+        <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 8 }}>
+          <b style={{ color: '#3ec6b6' }}>웃음은 최고의 명약!</b> <br />
+          웃음치료와 긍정적 정서 함양을 위한 <b>재미있고 유쾌한 프로그램</b>을
+          기획·운영합니다.
+          <br />
+          <span style={{ color: '#3ec6b6', fontWeight: 600 }}>
+            노인, 성인, 아동
+          </span>{' '}
+          등 다양한 계층을 대상으로 <b>웃음치료 강의</b>와 워크숍을 진행하며,
+          모두의 얼굴에 미소를 피웁니다.
+        </div>
+        <ul>
+          <li>
+            <b>웃음치료 이론·실습</b>, 긍정심리 코칭법 습득
+          </li>
+          <li>
+            <b>활동처</b>: 복지관, 병원, 평생교육기관, 기업 등
+          </li>
+          <li>
+            <b>진출 직업</b>: 웃음치료사, 건강강사, 복지프로그램 강사 등
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    name: '한지공예지도사',
+    summary: (
+      <div style={{ marginBottom: 32 }}>
+        <h4>한지공예지도사</h4>
+        <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 8 }}>
+          <b style={{ color: '#3ec6b6' }}>전통과 창의의 만남!</b> <br />
+          전통 한지공예 기법으로 <b>아름다운 공예품</b>을 만들고,{' '}
+          <span style={{ color: '#3ec6b6', fontWeight: 600 }}>
+            교육·체험 프로그램
+          </span>
+          을 운영하는 전문가입니다.
+          <br />
+          노인 여가·치유 프로그램, 학교, 문화센터 등에서 <b>손끝의 예술</b>을
+          전파합니다.
+        </div>
+        <ul>
+          <li>
+            <b>한지공예 실습</b>, 창작 및 지도법 습득
+          </li>
+          <li>
+            <b>활동처</b>: 문화센터, 복지관, 평생교육기관 등
+          </li>
+          <li>
+            <b>진출 직업</b>: 공예강사, 문화예술교육사, 체험프로그램 운영자 등
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    name: '실버책놀이지도사',
+    summary: (
+      <div style={{ marginBottom: 32 }}>
+        <h4>실버책놀이지도사</h4>
+        <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 8 }}>
+          <b style={{ color: '#3ec6b6' }}>책과 함께하는 두뇌운동!</b> <br />
+          노인 대상 <b>책놀이 프로그램</b>을 기획·운영하여{' '}
+          <span style={{ color: '#3ec6b6', fontWeight: 600 }}>
+            인지·정서 활성화
+          </span>
+          와 <b>사회성 증진</b>을 지원합니다.
+          <br />
+          복지관, 도서관, 평생교육기관 등에서 <b>책과 놀이의 즐거움</b>을
+          전합니다.
+        </div>
+        <ul>
+          <li>
+            <b>책놀이 프로그램 기획</b>, 독서치료, 인지활동 지도법 습득
+          </li>
+          <li>
+            <b>활동처</b>: 복지관, 도서관, 평생교육기관 등
+          </li>
+          <li>
+            <b>진출 직업</b>: 책놀이강사, 독서치료사, 인지활동 지도사 등
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    name: '노인돌봄생활지원사',
+    summary: (
+      <div style={{ marginBottom: 32 }}>
+        <h4>노인돌봄생활지원사</h4>
+        <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 8 }}>
+          <b style={{ color: '#3ec6b6' }}>노인의 든든한 동반자!</b> <br />
+          노인의 <b>일상생활 지원</b>, 정서적 교류, 건강관리, 사회참여 활동 등을
+          돕는{' '}
+          <span style={{ color: '#3ec6b6', fontWeight: 600 }}>돌봄 전문가</span>
+          입니다.
+          <br />
+          방문요양, 재가복지, 복지시설 등에서 <b>따뜻한 손길</b>로 노인분들의
+          삶을 지켜줍니다.
+        </div>
+        <ul>
+          <li>
+            <b>노인 돌봄 실무</b>, 건강관리, 생활지원 서비스 습득
+          </li>
+          <li>
+            <b>활동처</b>: 방문요양센터, 재가복지센터, 복지시설 등
+          </li>
+          <li>
+            <b>진출 직업</b>: 요양보호사, 생활지원사, 사회복지사 등
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+];
+
 const curriculumList = [
   {
     icon: <span className='business-icon'>👤</span>,
@@ -78,15 +231,21 @@ const curriculumList = [
     title: '민간자격증 발급',
     desc: (
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        <li>노인심리상담사</li>
-        <li>웃음코칭지도사</li>
-        <li>한지공예지도사</li>
-        <li>실버책놀이지도사</li>
-        <li>노인돌봄생활지원사</li>
+        {certificateSummaries.map(cert => (
+          <li
+            key={cert.name}
+            style={{
+              color: '#3ec6b6',
+              fontWeight: 600,
+              marginBottom: 6,
+            }}
+          >
+            {cert.name}
+          </li>
+        ))}
       </ul>
     ),
-    detail:
-      '민간자격증 발급 과정 상세 안내입니다. (각 자격증별 상세 설명, 발급 절차 등 구체 내용 추가 가능)',
+    detail: certificateSummaries.map(cert => cert.summary),
   },
 ];
 
@@ -97,19 +256,18 @@ const Curriculum: React.FC = () => {
     <div className='curriculum-page'>
       <div className='container'>
         <div className='page-header'>
-          <h1>교육과정</h1>
+          <h1 className='curriculum-title'>교육과정</h1>
         </div>
         <div className='business-areas'>
           {curriculumList.map((item, idx) => (
             <div
-              className='business-card'
+              className='business-card pretty-card'
               key={item.title}
               onClick={() => setModalIdx(idx)}
-              style={{ cursor: 'pointer' }}
             >
-              {item.icon}
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+              <div className='card-icon'>{item.icon}</div>
+              <h3 className='card-title'>{item.title}</h3>
+              <div className='card-desc'>{item.desc}</div>
             </div>
           ))}
         </div>
@@ -119,17 +277,32 @@ const Curriculum: React.FC = () => {
         onClose={() => setModalIdx(null)}
         title={modalIdx !== null ? curriculumList[modalIdx].title : ''}
       >
-        <div style={{ whiteSpace: 'pre-line' }}>
+        <div
+          className={`curriculum-modal-content${
+            modalIdx === 3 ? ' cert-list-modal' : ''
+          }`}
+        >
           {modalIdx !== null &&
-            (modalIdx === 2 ? (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: curriculumList[modalIdx].detail as string,
-                }}
-              />
-            ) : (
-              curriculumList[modalIdx].detail
-            ))}
+          Array.isArray(curriculumList[modalIdx].detail) ? (
+            <div className='cert-list'>
+              {(curriculumList[modalIdx].detail as React.ReactNode[]).map(
+                (summary, i) => (
+                  <div className='cert-card' key={i}>
+                    {summary}
+                  </div>
+                )
+              )}
+            </div>
+          ) : modalIdx === 2 ? (
+            <span
+              dangerouslySetInnerHTML={{
+                __html: curriculumList[modalIdx].detail as string,
+              }}
+            />
+          ) : modalIdx !== null &&
+            typeof curriculumList[modalIdx].detail === 'string' ? (
+            <div className='modal-desc'>{curriculumList[modalIdx].detail}</div>
+          ) : null}
         </div>
       </Modal>
     </div>

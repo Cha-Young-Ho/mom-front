@@ -101,6 +101,14 @@ const Home: React.FC = () => {
       buttonText: '자세히 보기',
       image: process.env.PUBLIC_URL + '/semina.jpeg',
     },
+    {
+      id: 4,
+      title: '노인케어 전문가 과정',
+      subtitle:
+        '노인 심리지원, 인지기능 활성화, 사회성 발달을 위한 민간자격 취득 교육! (9/4~10/30, 매주 목, 총 8회)',
+      buttonText: '자세히 보기',
+      image: process.env.PUBLIC_URL + '/images/oldman_care.png',
+    },
   ];
 
   // 자동 슬라이드 기능
@@ -208,7 +216,10 @@ const Home: React.FC = () => {
         title={modalSlideIdx !== null ? slides[modalSlideIdx].title : ''}
       >
         {modalSlideIdx !== null && (
-          <BannerModalContent slideIdx={modalSlideIdx} />
+          <BannerModalContent
+            slideIdx={modalSlideIdx}
+            image={slides[modalSlideIdx].image}
+          />
         )}
       </Modal>
 

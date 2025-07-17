@@ -2,6 +2,7 @@ import React from 'react';
 
 interface BannerModalContentProps {
   slideIdx: number;
+  image: string;
 }
 
 const bannerSummaries = [
@@ -20,10 +21,16 @@ const bannerSummaries = [
     summary:
       '센터에서 진행된 각종 세미나, 행사, 교육 현장의 생생한 모습을 사진과 함께 소개합니다. 다양한 활동과 참여 후기를 확인해보세요.',
   },
+  {
+    title: '노인케어 전문가 과정',
+    summary:
+      '노인 관련 직무 역량 향상 및 민간자격 취득 과정입니다. 정서지원, 인지기능 활성화, 사회성 발달 등 다양한 노인케어 실무를 배우고, 심리상담사·웃음코칭지도사·실버책놀이지도사 등 자격증 취득이 가능합니다. 9/4~10/30, 매주 목요일, 총 8회 24시간 진행. 수강료 15만원(교재비 별도). 문의: 055-283-3220',
+  },
 ];
 
 const BannerModalContent: React.FC<BannerModalContentProps> = ({
   slideIdx,
+  image,
 }) => {
   const info = bannerSummaries[slideIdx] || bannerSummaries[0];
   return (
@@ -31,7 +38,21 @@ const BannerModalContent: React.FC<BannerModalContentProps> = ({
       <h3 style={{ color: '#3ec6b6', fontWeight: 700, marginBottom: 10 }}>
         {info.title}
       </h3>
-      <div style={{ fontSize: '1.08rem', lineHeight: 1.7 }}>{info.summary}</div>
+      <div style={{ fontSize: '1.08rem', lineHeight: 1.7, marginBottom: 20 }}>
+        {info.summary}
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <img
+          src={image}
+          alt={info.title}
+          style={{
+            maxWidth: '320px',
+            width: '100%',
+            borderRadius: 12,
+            boxShadow: '0 4px 16px rgba(0,0,0,0.07)',
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { uploadAPI } from '../../../services/api';
+import { newsUploadAPI } from '../../../services/api';
 import { BannerSlide } from '../../../services/bannerAPI';
 import { createImagePreview, validateImageFile } from '../../../utils/imageUpload';
 import Modal from '../Modal/Modal';
@@ -100,8 +100,8 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
       setIsUploading(true);
       setUploadProgress('이미지 업로드 중...');
 
-      // S3 presigned URL을 사용한 이미지 업로드
-      const fileUrl = await uploadAPI.uploadFile(selectedFile);
+      // News S3 업로드 API 사용 (인증 불필요)
+      const fileUrl = await newsUploadAPI.uploadFile(selectedFile);
       
       setUploadProgress('업로드 완료!');
       return fileUrl;

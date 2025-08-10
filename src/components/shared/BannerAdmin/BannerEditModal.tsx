@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { uploadAPI } from '../../../services/api';
 import { BannerSlide } from '../../../services/bannerAPI';
+import { createImagePreview, validateImageFile } from '../../../utils/imageUpload';
 import Modal from '../Modal/Modal';
 import './BannerEditModal.css';
 
@@ -24,7 +25,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [uploadProgress, setUploadProgress] = useState<string>('');
 
   const isEditing = slide !== null;
 
@@ -47,7 +48,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
       setImagePreview('');
     }
     setSelectedFile(null);
-    setUploadProgress(0);
+    setUploadProgress('');
   }, [slide]);
 
   const handleInputChange = (
@@ -60,28 +61,34 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      // 파일 크기 검증 (5MB 제한)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('파일 크기는 5MB 이하여야 합니다.');
-        return;
-      }
+    if (!file) return;
 
-      // 파일 타입 검증
-      if (!file.type.startsWith('image/')) {
-        alert('이미지 파일만 업로드 가능합니다.');
+    try {
+      // 파일 유효성 검사
+      const validation = validateImageFile(file);
+      if (!validation.isValid) {
+        alert(validation.error);
         return;
       }
 
       setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onload = e => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      const preview = await createImagePreview(file);
+      setImagePreview(preview);
+    } catch (error) {
+      console.error('이미지 미리보기 생성 실패:', error);
+      alert('이미지 미리보기 생성에 실패했습니다.');
     }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+    setImagePreview('');
+    setFormData(prev => ({
+      ...prev,
+      image: '',
+    }));
   };
 
   const handleImageUpload = async (): Promise<string> => {
@@ -91,12 +98,12 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
 
     try {
       setIsUploading(true);
-      setUploadProgress(0);
+      setUploadProgress('이미지 업로드 중...');
 
       // S3 presigned URL을 사용한 이미지 업로드
       const fileUrl = await uploadAPI.uploadFile(selectedFile);
       
-      setUploadProgress(100);
+      setUploadProgress('업로드 완료!');
       return fileUrl;
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
@@ -104,7 +111,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
       throw error;
     } finally {
       setIsUploading(false);
-      setUploadProgress(0);
+      setUploadProgress('');
     }
   };
 
@@ -117,7 +124,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
     }
 
     if (!formData.image.trim() && !selectedFile) {
-      alert('이미지를 선택하거나 URL을 입력해주세요.');
+      alert('이미지를 선택해주세요.');
       return;
     }
 
@@ -141,19 +148,6 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
     }
   };
 
-  const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      image: value,
-    }));
-    
-    // URL이 유효한 이미지인지 미리보기
-    if (value) {
-      setImagePreview(value);
-    }
-  };
-
   return (
     <Modal
       isOpen={true}
@@ -171,6 +165,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
             onChange={handleInputChange}
             placeholder='배너 제목을 입력하세요'
             required
+            disabled={isUploading}
           />
         </div>
         
@@ -183,73 +178,49 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
             onChange={handleInputChange}
             placeholder='배너 내용을 입력하세요'
             rows={6}
-          />
-        </div>
-        
-        <div className='form-group'>
-          <label htmlFor='imageFile'>이미지 파일 업로드</label>
-          <div className='image-upload-container'>
-            <input
-              type='file'
-              id='imageFile'
-              name='imageFile'
-              accept='image/*'
-              onChange={handleFileChange}
-              className='file-input'
-              disabled={isUploading}
-            />
-            <label htmlFor='imageFile' className='file-input-label'>
-              {selectedFile ? selectedFile.name : '이미지 파일 선택'}
-            </label>
-          </div>
-          <small className='form-help'>
-            JPG, PNG, GIF 파일 (최대 5MB)를 선택하세요.
-          </small>
-          {isUploading && (
-            <div className='upload-progress'>
-              <div className='progress-bar'>
-                <div 
-                  className='progress-fill' 
-                  style={{ width: `${uploadProgress}%` }}
-                ></div>
-              </div>
-              <span>업로드 중... {uploadProgress}%</span>
-            </div>
-          )}
-        </div>
-        
-        <div className='form-group'>
-          <label htmlFor='imageUrl'>이미지 URL</label>
-          <input
-            type='url'
-            id='imageUrl'
-            name='imageUrl'
-            value={formData.image}
-            onChange={handleImageUrlChange}
-            placeholder='https://example.com/image.jpg'
             disabled={isUploading}
           />
-          <small className='form-help'>
-            파일 업로드 대신 이미지 URL을 직접 입력할 수도 있습니다.
-          </small>
         </div>
         
-        {(imagePreview || formData.image) && (
-          <div className='image-preview'>
-            <label>이미지 미리보기:</label>
-            <img
-              src={imagePreview || formData.image}
-              alt='미리보기'
-              onError={e => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextElementSibling?.classList.remove('hidden');
-              }}
-            />
-            <div className='image-error hidden'>
-              이미지를 불러올 수 없습니다.
-            </div>
+        <div className='form-group'>
+          <label htmlFor='imageFile'>이미지 업로드 *</label>
+          <div className='image-upload-section'>
+            {imagePreview ? (
+              <div className='image-preview'>
+                <img src={imagePreview} alt='미리보기' />
+                <button
+                  type='button'
+                  className='remove-image-btn'
+                  onClick={handleRemoveImage}
+                  disabled={isUploading}
+                >
+                  제거
+                </button>
+              </div>
+            ) : (
+              <div className='upload-placeholder'>
+                <input
+                  type='file'
+                  id='imageFile'
+                  name='imageFile'
+                  accept='image/*'
+                  onChange={handleFileChange}
+                  className='file-input'
+                  disabled={isUploading}
+                />
+                <label htmlFor='imageFile' className='upload-button'>
+                  📷 이미지 선택
+                </label>
+                <p className='upload-hint'>
+                  JPG, PNG, GIF 파일만 업로드 가능 (최대 5MB)
+                </p>
+              </div>
+            )}
           </div>
-        )}
+          {uploadProgress && (
+            <div className='upload-progress'>{uploadProgress}</div>
+          )}
+        </div>
         
         <div className='form-actions'>
           <button 
@@ -265,7 +236,7 @@ const BannerEditModal: React.FC<BannerEditModalProps> = ({
             className='btn-save' 
             disabled={isUploading}
           >
-            {isUploading ? '업로드 중...' : isEditing ? '수정' : '추가'}
+            {isUploading ? uploadProgress || '업로드 중...' : isEditing ? '수정' : '추가'}
           </button>
         </div>
       </form>

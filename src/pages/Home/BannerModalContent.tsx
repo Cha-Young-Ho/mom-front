@@ -3,6 +3,7 @@ import React from 'react';
 interface BannerModalContentProps {
   slideIdx: number;
   image: string;
+  content?: string;
 }
 
 const bannerSummaries = [
@@ -31,15 +32,20 @@ const bannerSummaries = [
 const BannerModalContent: React.FC<BannerModalContentProps> = ({
   slideIdx,
   image,
+  content,
 }) => {
   const info = bannerSummaries[slideIdx] || bannerSummaries[0];
+
+  // content가 있으면 content를 사용, 없으면 기본 summary 사용
+  const displayContent = content || info.summary;
+
   return (
     <div style={{ padding: '10px 0' }}>
       <h3 style={{ color: '#3ec6b6', fontWeight: 700, marginBottom: 10 }}>
         {info.title}
       </h3>
       <div style={{ fontSize: '1.08rem', lineHeight: 1.7, marginBottom: 20 }}>
-        {info.summary}
+        {displayContent}
       </div>
       <div style={{ textAlign: 'center' }}>
         <img

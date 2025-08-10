@@ -1,7 +1,21 @@
 // API 설정 파일
+
+// 환경별 API URL 설정
+const getBaseURL = () => {
+  const environment = process.env.NODE_ENV;
+  
+  if (environment === 'development') {
+    // 개발 환경: localhost
+    return process.env.REACT_APP_API_URL || 'http://localhost:3001';
+  } else {
+    // 프로덕션 환경: AWS API Gateway
+    return process.env.REACT_APP_API_URL || 'https://axj39b1x3k.execute-api.ap-northeast-2.amazonaws.com/Prod';
+  }
+};
+
 export const API_CONFIG = {
   // 환경별 API URL 설정
-  baseURL: process.env.REACT_APP_API_URL || 'https://your-api-server.com',
+  baseURL: getBaseURL(),
 
   // API 엔드포인트
   endpoints: {
@@ -12,6 +26,10 @@ export const API_CONFIG = {
     // 갤러리 API
     gallery: '/gallery',
     galleryRecent: '/gallery/recent',
+
+    // 배너 API
+    banner: '/banner',
+    bannerAll: '/banner/all',
 
     // 파일 업로드 API
     uploadPresigned: '/upload/presigned',
@@ -40,7 +58,7 @@ export const API_CONFIG = {
 
 // 환경별 설정
 export const getEnvironment = () => {
-  return process.env.REACT_APP_ENVIRONMENT || 'development';
+  return process.env.NODE_ENV || 'development';
 };
 
 // API URL 생성 헬퍼

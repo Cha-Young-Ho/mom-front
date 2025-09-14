@@ -31,12 +31,7 @@ const Header: React.FC = () => {
             <Link to='/'>
               <div className='logo-container'>
                 <div className='logo-icon'>
-                  <div className='logo-blocks'>
-                    <div className='block block-1'></div>
-                    <div className='block block-2'></div>
-                    <div className='block block-3'></div>
-                    <div className='block block-4'></div>
-                  </div>
+                  <img src='/logo.png' alt='한국미래인적자원개발원 로고' className='logo-image' />
                 </div>
                 <h1>한국미래인적자원개발원</h1>
               </div>
